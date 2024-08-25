@@ -54,7 +54,7 @@ function Footer() {
                 <ul className="col-span-2 flex justify-start gap-6 lg:col-span-2 lg:justify-end">
                 <li>
                     <a
-                    href="#"
+                    href="https://www.facebook.com/nightowljapanese"
                     rel="noreferrer"
                     target="_blank"
                     className="text-gray-700 transition hover:opacity-75"
