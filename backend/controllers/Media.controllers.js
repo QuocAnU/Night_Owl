@@ -21,24 +21,11 @@ const upload = async (req, res) => {
                 if (error) {
                     return res.status(500).json({ error: error.message });
                 }
-                console.log(result);
-                try {
-                    const media = await new Media({
-                        id: result.public_id,
-                        url: result.secure_url,
-                        created_at: result.created_at
-                    });
-
-                    await media.save();
                     return res.json({
                         id: result.public_id,
                         url: result.secure_url,
                         created_at: result.created_at
                     });
-                } catch (dbError) {
-                    console.error('Error saving media to database:', dbError);
-                    return res.status(500).json({ error: 'Error saving media to database' });
-                }
             }
         ).end(buffer);
 
