@@ -4,12 +4,20 @@ const dotenv = require('dotenv');
 const { Webhook } = require('svix'); // Use the correct import
 const bodyParser = require('body-parser');
 const User = require('./models/user');
+const MediaRoute = require('./routes/mediaRouter');
+const multer = require('multer');
+const upload = multer();
+
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5001;
 
 connect();
+
+app.use(bodyParser.json());
+
+app.use(upload.any());
 
 app.post(
   '/api/webhooks',
@@ -41,6 +49,8 @@ app.post(
     }
   },
 );
+
+app.use('/api', MediaRoute);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
