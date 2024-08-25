@@ -23,7 +23,7 @@ const upload = async (req, res) => {
                 }
                 console.log(result);
                 try {
-                    const media = new Media({
+                    const media = await new Media({
                         id: result.public_id,
                         url: result.secure_url,
                         created_at: result.created_at
