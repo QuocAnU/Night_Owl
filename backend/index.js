@@ -3,10 +3,13 @@ const { connect } = require('./config');
 const dotenv = require('dotenv');
 const { Webhook } = require('svix'); // Use the correct import
 const bodyParser = require('body-parser');
-const User = require('./models/user');
-const MediaRoute = require('./routes/mediaRouter');
 const multer = require('multer');
 const upload = multer();
+const cors = require('cors');
+
+const User = require('./models/user');
+const MediaRoute = require('./routes/mediaRouter');
+const FreeTestRoute = require('./routes/freeTestRouter');
 
 const PayOS = require('@payos/node');
 
@@ -16,6 +19,13 @@ const payos = new PayOS(process.env.CLIENT_ID, process.env.API_KEY_PAYOS, proces
 
 const app = express();
 const port = process.env.PORT || 5001;
+
+app.use(cors(
+    {
+        origin: "*",
+        credentials: true,
+    }
+))
 
 connect();
 
@@ -78,8 +88,10 @@ app.post(
   },
 );
 
-app.use('/api', MediaRoute);
 
+
+app.use('/api', MediaRoute);
+app.use('/api', FreeTestRoute);
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
