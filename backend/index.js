@@ -8,7 +8,11 @@ const MediaRoute = require('./routes/mediaRouter');
 const multer = require('multer');
 const upload = multer();
 
+const PayOS = require('@payos/node');
+
+
 dotenv.config();
+const payos = new PayOS(process.env.CLIENT_ID, process.env.API_KEY_PAYOS, process.env.CHECKSUM_KEY);
 
 const app = express();
 const port = process.env.PORT || 5001;
@@ -18,6 +22,30 @@ connect();
 app.use(bodyParser.json());
 
 app.use(upload.any());
+
+app.port('/create-payment-link', async (req, res) => {
+  try {
+    const { amount, orderCode } = req.body;
+    const order = {
+      amount,
+      orderCode,
+      description: `Payment for order ${orderCode}`,
+      returnUrl: "https://night-owl-xn17.vercel.app/profile",
+      cancelUrl: "https://night-owl-xn17.vercel.app/premium/payment",
+    };
+
+    const paymentLink = await payos.createPaymentLink(order);
+    res.json({ checkoutUrl: paymentLink.checkoutUrl });
+    } catch (error) {
+    console.log(error);
+    res.status(400).json({ success: false, message: error.message });
+  }
+})
+
+app.post('/receive-hook', async (req, res) => {
+  console.log(req.body);
+  res.json();
+});
 
 app.post(
   '/api/webhooks',
