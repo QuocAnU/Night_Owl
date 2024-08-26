@@ -1,6 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '@clerk/clerk-react';
+import FreeTestApi from '../api/freeTest';
 
 function FreeTest() {
+   const { getToken } = useAuth();
+  const [questions, setQuestions] = useState([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = await getToken(); 
+        const data = await FreeTestApi.getData(token);
+        setQuestions(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchData();
+  }, [getToken]);
+
+  console.log("Questions: ",questions);
   return (
     <div className="max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold text-center mb-6">Test Hiragana & Katakana</h1>
