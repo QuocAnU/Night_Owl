@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 
 app.use(upload.any());
 
-app.port('/create-payment-link', async (req, res) => {
+app.post('/create-payment-link', async (req, res) => {
   try {
     const { amount, orderCode } = req.body;
     const order = {
