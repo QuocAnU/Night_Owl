@@ -25,7 +25,7 @@ function Header() {
 
     const navItems = [
         { name: 'Home', path: '/' },
-        { name: 'Free Lessons', paths: ['/freeLessons', '/freeLessons/Hiragana&Katakana'] },
+        { name: 'Free Lessons', paths: ['/freeLessons', '/freeLessons/Hiragana&Katakana', '/freeTest'] },
         { name: 'Skills', path: '/skills' },
         { name: 'Test', path: '/test' },
         { name: 'Calendar', path: '/calendar', icon: <i className="fa-regular fa-calendar-days"></i> },
@@ -72,7 +72,7 @@ function Header() {
                     {isSignedIn ? (
                         <UserButton />
                     ) : (
-                        <Link to="/login">
+                         <Link to="/login" state={{ redirectTo: "/" }}>
                             <Button>Sign in</Button>
                         </Link>
                     )}

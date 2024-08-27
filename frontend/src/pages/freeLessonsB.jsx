@@ -72,7 +72,7 @@ function FreeLessonsB() {
   const handleConfirmLogin = (confirm) => {
     setShowConfirmLogin(false);
     if (confirm) {
-      navigate('/login', { state: { from: location.pathname } });
+      navigate('/login', { state: { redirectTo: "/freeTest" } });
     }
   };
 

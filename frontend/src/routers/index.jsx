@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     element: <VocalView />,
   },
   {
-    path: '/skills/vocal/:id',
+    path: '/skills/vocal/:section',
     element: <VocabularyTest />,
   },
   {
