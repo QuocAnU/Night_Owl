@@ -10,6 +10,7 @@ const cors = require('cors');
 const User = require('./models/user');
 const MediaRoute = require('./routes/mediaRouter');
 const FreeTestRoute = require('./routes/freeTestRouter');
+const KanjiRoute = require('./routes/kanjiRouter');
 
 const PayOS = require('@payos/node');
 
@@ -92,6 +93,7 @@ app.post(
 
 app.use('/api', MediaRoute);
 app.use('/api', FreeTestRoute);
+app.use('/api', KanjiRoute);
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
