@@ -32,7 +32,7 @@ const subscriptionPlans = [
 function Premium() {
   return (
     <div>
-        <Header />
+      <Header />
       <div className='mt-16'>
         <div className='flex flex-col px-20'>
           <div className="text-center text-4xl font-bold sm:text-5xl p-8">

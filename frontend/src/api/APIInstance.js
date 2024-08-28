@@ -5,7 +5,7 @@ import { API_BASE_URL } from './endpoint'; // Thay đổi URL cơ sở của API
 
 // Tạo đối tượng axios với cấu hình cơ sở
 const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: API_BASE_URL || 'http://localhost:5001/api',
   headers: {
     'Content-Type': 'application/json',
   },
