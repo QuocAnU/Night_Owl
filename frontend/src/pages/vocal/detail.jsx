@@ -5,6 +5,7 @@ import KanjiApi from '@/api/Vocal/kanji';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useNavigate } from 'react-router-dom';
+import { Spin } from 'antd';
 
 function VocabularyTest() {
   const { section } = useParams();
@@ -13,6 +14,8 @@ function VocabularyTest() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -20,10 +23,12 @@ function VocabularyTest() {
           const res = await KanjiApi.getKanji();
           if (res && res.data) {
             setDataList(res.data);
+            setLoading(false);
           }
         }
       } catch (error) {
         console.error(error);
+        setLoading(false);
       }
     };
     fetchData();
@@ -45,6 +50,13 @@ function VocabularyTest() {
 
   const item = dataList[currentIndex] || {};
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spin size="large" />
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col bg-white">
       <Header />
