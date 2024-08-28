@@ -1,0 +1,13 @@
+/* Đối với Webkit browsers (Chrome, Safari) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Chiều rộng của thanh cuộn */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #eee; /* Màu nền của thanh cuộn */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888; /* Màu của thanh cuộn */
+  border-radius: 8px; /* Bo góc của thanh cuộn */
+}

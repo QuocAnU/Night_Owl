@@ -26,17 +26,24 @@ function Header() {
     const navItems = [
         { name: 'Home', path: '/' },
         { name: 'Free Lessons', paths: ['/freeLessons', '/freeLessons/Hiragana&Katakana', '/freeTest'] },
-        { name: 'Skills', path: '/skills' },
+        { name: 'Skills', 
+            paths: ['/skills', '/skills/vocal', '/skills/vocal/:section', '/skills/vocal/:section/:sectionValue'
+                ,'/skills/grammar', '/skills/grammar/:section',
+            ]},
         { name: 'Test', path: '/test' },
         { name: 'Calendar', path: '/calendar', icon: <i className="fa-regular fa-calendar-days"></i> },
     ];
 
     const isActive = (item) => {
         if (item.paths) {
-            return item.paths.includes(location.pathname);
+            return item.paths.some(path => {
+                const regex = new RegExp(`^${path.replace(/:\w+/g, '\\w+')}$`);
+                return regex.test(location.pathname);
+            });
         }
         return location.pathname === item.path;
     };
+
 
     return (
         <header className={headerClasses}>

@@ -6,13 +6,14 @@ import { API_BASE_URL } from './endpoint'; // Thay đổi URL cơ sở của API
 // Tạo đối tượng axios với cấu hình cơ sở
 const apiClient = axios.create({
   baseURL: API_BASE_URL || 'http://localhost:5001/api',
+  // baseURL:  'http://localhost:5001/api',
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 // Phương thức chung để gọi API
-export const apiRequest = async (method, endpoint, token, body = null) => {
+export const apiRequest = async (method, endpoint, token, body = null, params = null) => {
   try {
     const response = await apiClient.request({
       url: endpoint,
@@ -21,6 +22,7 @@ export const apiRequest = async (method, endpoint, token, body = null) => {
         'Authorization': token ? `Bearer ${token}` : undefined, // Thêm token vào header nếu có
       },
       data: body,
+      params: params,
     });
 
     return response.data;
@@ -30,7 +32,7 @@ export const apiRequest = async (method, endpoint, token, body = null) => {
   }
 };
 
-export const get = (endpoint, token) => apiRequest('GET', endpoint, token);
+export const get = (endpoint, token, params) => apiRequest('GET', endpoint, token, null, params);
 export const post = (endpoint, body, token) => apiRequest('POST', endpoint, token, body);
 export const put = (endpoint, body, token) => apiRequest('PUT', endpoint, token, body);
 export const patch = (endpoint, body, token) => apiRequest('PATCH', endpoint, token, body);

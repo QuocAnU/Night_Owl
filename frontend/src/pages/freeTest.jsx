@@ -100,9 +100,11 @@ function FreeTest() {
 
   const handleOnSubmit = async (values) => {
     try {
-      console.log('Form Values:', values);
+      const data = {
+        values: values
+      };
       const token = await getToken();
-      const res = await FreeTestApi.submitAnswers(values, token); 
+      const res = await FreeTestApi.submitAnswers(data, token); 
       if(res) {
         setScore(res.score);
         setTotalQuestions(res.totalQuestions);

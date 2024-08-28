@@ -3,14 +3,12 @@ import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@clerk/clerk-react';
-import  KanjiApi  from '@/api/Vocal/kanji';
-import HiraApi  from '@/api/Vocal/hira';
-import KataApi  from '@/api/Vocal/kata';
+import GrammarTheoryApi from '@/api/Grammar/Theory';
 import { useState , useEffect } from 'react';
 import { Spin } from 'antd';
 
 
-function Skills() {
+function GrammarTheoryView() {
   const navigate = useNavigate();
   const location = useLocation();
   const { sectionKey } = location.state || {};
@@ -28,20 +26,8 @@ function Skills() {
       try {
         setLoading(true);
         const token = await getToken();
-        if(sectionKey === 'Kanji') {
-          const res = await KanjiApi.getKanji(token)
-          if (res && res.data) {
-            setListValues(res.data);
-            setLoading(false);
-          }
-        } else if(sectionKey === 'Hiragana') {
-          const res = await HiraApi.getHira(token)
-          if (res && res.data) {
-            setListValues(res.data);
-            setLoading(false);
-          }
-        } else if(sectionKey === 'Katakana') {
-          const res = await KataApi.getKata(token)
+        if(sectionKey === 'theory') {
+          const res = await GrammarTheoryApi.getGrammarTheory(token)
           if (res && res.data) {
             setListValues(res.data);
             setLoading(false);
@@ -58,19 +44,19 @@ function Skills() {
     return (
       <div className="flex flex-col min-h-screen">
         <Header />
-        <div className="flex-grow mt-16">
+        <div className="flex-grow justify-center mt-16">
           {loading ? (
             <Spin />
           ) : (
             <div className="flex flex-col px-52">
             <button
-              onClick={() => navigate('/skills/vocal')}
+              onClick={() => navigate('/skills/grammar')}
               className="mt-5 w-4"
             >
               <i className="fa-solid fa-arrow-left fa-xl"></i>
             </button>
             <div className="text-center text-4xl font-bold sm:text-5xl p-8">
-              Chọn bài học
+              Lý Thuyết Ngữ Pháp
             </div>
             <div className="flex flex-col items-center justify-center mt-5">
               {listValues.map((value, index) => (
@@ -90,4 +76,4 @@ function Skills() {
     )
 }
 
-export default Skills
+export default GrammarTheoryView;

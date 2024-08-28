@@ -20,7 +20,7 @@ function Skills() {
         navigate('/skills/vocal');
         break;
       case "Ngữ pháp":
-        navigate('/free-test');
+        navigate('/skills/grammar');
         break;
       case "Đọc":
         navigate('/free-test');

@@ -3,7 +3,7 @@ import { get, post} from './APIInstance';
 const FreeTestApi = {
     async getData(token) {
         try {
-        const data = await get('/free-test', 'GET', null, token);
+        const data = await get('/free-test', token, null);
             return data;
             } catch (error) {
             console.error('Error fetching free test data:', error);
@@ -11,10 +11,10 @@ const FreeTestApi = {
             }
         },
 
-    async submitAnswers(values, token) {
+    async submitAnswers(data, token) {
         try {
-        const data = await post('/submit-answers', values, 'POST', null, token);
-            return data;
+        const resData = await post('/submit-answers', data, token);
+            return resData;
             } catch (error) {
             console.error('Error submitting free test answers:', error);
             throw error;

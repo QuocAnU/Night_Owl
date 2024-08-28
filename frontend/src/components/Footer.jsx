@@ -6,7 +6,7 @@ function Footer() {
         <div>
             <hr className="mx-4 sm:mx-20" />
             <footer className="bg-white">
-                <div className="mx-auto max-w-screen-xl px-4 pt-8 pb-6 sm:px-6 lg:px-8">
+                <div className="mx-auto max-w-screen-xl px-4 pt-8 sm:px-6 lg:px-8">
                     <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between lg:gap-8">
                         <div className="text-gray-900 flex flex-col items-center lg:items-start">
                             <div className="text-2xl font-bold sm:text-3xl lg:text-4xl">
