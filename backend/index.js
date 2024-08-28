@@ -11,6 +11,10 @@ const User = require('./models/user');
 const MediaRoute = require('./routes/mediaRouter');
 const FreeTestRoute = require('./routes/freeTestRouter');
 const KanjiRoute = require('./routes/kanjiRouter');
+const CommentRoute = require('./routes/commentRouter');
+const KataRoute = require('./routes/kataRouter');
+const HiraRoute = require('./routes/hiraRouter');
+const GrammarTheoryRoute = require('./routes/grammarTheoryRouter');
 
 const PayOS = require('@payos/node');
 
@@ -94,6 +98,10 @@ app.post(
 app.use('/api', MediaRoute);
 app.use('/api', FreeTestRoute);
 app.use('/api', KanjiRoute);
+app.use('/api', CommentRoute);
+app.use('/api', KataRoute);
+app.use('/api', HiraRoute);
+app.use('/api', GrammarTheoryRoute);
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });

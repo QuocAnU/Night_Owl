@@ -1,15 +1,26 @@
 const Kanji = require('../models/Kanjs');
 
-// Get all Kanji
-const getAllKanji = async (req, res) => {
+
+const getKanji = async (req, res) => {
   try {
-    const kanji = await Kanji.find();
-    res.status(200).json({data: kanji, message: 'success'});
+    const { section } = req.query;
+
+    if (section) {
+      // If a section is specified, fetch Kanji by section
+      const kanji = await Kanji.find({ sections: section });
+      res.status(200).json({ data: kanji, message: 'success' });
+    } else {
+      // If no section is specified, return distinct sections
+      const kanjiSections = await Kanji.distinct('sections');
+      res.status(200).json({ data: kanjiSections, message: 'success' });
+    }
   } catch (error) {
     console.error('Error fetching Kanji:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
 
 // Get Kanji by ID
 const getKanjiById = async (req, res) => {
@@ -38,7 +49,7 @@ const createKanji = async (req, res) => {
 };
 
 module.exports = {
-  getAllKanji,
+  getKanji,
   getKanjiById,
   createKanji,
 };

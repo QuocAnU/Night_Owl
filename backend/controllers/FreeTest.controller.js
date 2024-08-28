@@ -22,9 +22,8 @@ const getQuestions = async (req, res) => {
 
 const submitAnswers = async (req, res) => {
   try {
-    console.log(req.body);
-    const userAnswers = req.body;
-    const questionIds = Object.keys(userAnswers);
+    const {values} = req.body;
+    const questionIds = Object.keys(values);
     const fullQuestions = await FreeTest.find();
     const questions = await FreeTest.find({ _id: { $in: questionIds } });
 
@@ -32,7 +31,7 @@ const submitAnswers = async (req, res) => {
     const totalQuestions = fullQuestions.length;
 
     questions.forEach((question) => {
-      const userAnswer = userAnswers[question._id];
+      const userAnswer = values[question._id];
       if (userAnswer && userAnswer.toLowerCase() === question.answer.toLowerCase()) {
         score += 1;
       }
