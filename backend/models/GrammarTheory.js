@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const grammarTheorySchema = new mongoose.Schema({
   theories: {
-    type: [String], 
+    type: String, 
     required: true,
   },
   instructions: {

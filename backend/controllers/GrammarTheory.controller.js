@@ -5,7 +5,7 @@ const getGrammarTheory = async (req, res) => {
         const { section } = req.query;
         if (section) {
             // If a section is specified, fetch GrammarTheory by section
-            const grammarTheory = await GrammarTheory.find({ sections: section });
+            const grammarTheory = await GrammarTheory.findOne({ sections: section });
             res.status(200).json({ data: grammarTheory, message: 'success' });
         } else {
             // If no section is specified, return distinct sections

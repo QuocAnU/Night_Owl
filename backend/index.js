@@ -15,6 +15,7 @@ const CommentRoute = require('./routes/commentRouter');
 const KataRoute = require('./routes/kataRouter');
 const HiraRoute = require('./routes/hiraRouter');
 const GrammarTheoryRoute = require('./routes/grammarTheoryRouter');
+const QuestionRoute = require('./routes/questionRouter');
 
 const PayOS = require('@payos/node');
 
@@ -102,6 +103,7 @@ app.use('/api', CommentRoute);
 app.use('/api', KataRoute);
 app.use('/api', HiraRoute);
 app.use('/api', GrammarTheoryRoute);
+app.use('/api', QuestionRoute);
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
