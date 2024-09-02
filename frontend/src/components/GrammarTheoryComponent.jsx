@@ -1,28 +1,33 @@
 /* eslint-disable react/prop-types */
 function GrammarTheoryComponent(props) {
-    const {theories,instructions, examples} = props;
+    const {dataList} = props;
+    const {theories, instructions, examples} = dataList;
+
+    console.log(dataList);
 
     return (
-        <div>
-            <div>
-
-                {theories && theories.map((theory, index) => (
-                    <span key={index}>{theory}</span>
-                ))}
+        <div className="flex flex-col">
+            <div className="flex flex-col items-center">
+                <div className=" flex flex-col place-items-star p-2">
+                <img src={theories} alt="Grammar Theory"  />
             </div>
-            <span>Cách dùng: </span>
-            <div>
-
+            </div>
+            
+           <span className="text-normal text-2xl underline">Cách dùng:</span>
+           <div className="flex flex-col">
+            <div className="flex flex-col text-normal text-2xl place-items-start p-4">
                 {instructions && instructions.map((instruction, index) => (
                     <span key={index}>{instruction}</span>
                 ))}
             </div>
-            <span>Ví dụ: </span>
-            <div>
-
-                {examples && examples.map((example, index) => (
+           </div>
+            <span className="text-normal text-2xl underline">Ví dụ: </span>
+            <div className="flex flex-col">
+                <div className="flex flex-col text-normal text-2xl place-items-start border-b-2 border-gray-300 p-4" >
+                    {examples && examples.map((example, index) => (
                     <span key={index}>{example}</span>
                 ))}
+                </div>
             </div>
         </div>
     )

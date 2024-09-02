@@ -1,4 +1,3 @@
-import { data } from 'autoprefixer';
 import { get, post } from './../APIInstance';
 
 const CommentApi = {
@@ -12,7 +11,7 @@ const CommentApi = {
             }   
         },
 
-    async createComment(token, data ) {
+    async createComment(token, data) {
         try {
         const resData = await post('/comments', data, token);
             return resData;

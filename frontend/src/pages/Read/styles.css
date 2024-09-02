@@ -1,0 +1,16 @@
+:where(.css-dev-only-do-not-override-1gwfwyx).ant-radio-button-wrapper:first-child {
+    border-inline-start: 1px solid #d9d9d9;
+    border-radius: 10px;
+}
+
+:where(.css-dev-only-do-not-override-1gwfwyx).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    z-index: 1;
+    color: #34A853;
+    background: #ffffff;
+    border-color: #34A853;
+}
+
+:where(.css-dev-only-do-not-override-1gwfwyx).ant-radio-button-wrapper:hover {
+    position: relative;
+    color: #34A853;
+}

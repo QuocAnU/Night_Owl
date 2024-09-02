@@ -11,6 +11,11 @@ import LoginPage from '@/pages/login';
 import SkillsLayout from '@/pages/vocal/index';
 import GrammarLayout from '@/pages/Grammar/index';
 import GrammarTheoryView from '@/pages/Grammar/view';
+import GrammarTheoryDetail from '@/pages/Grammar/detail';
+import ReadView from '@/pages/read/view';
+import ReadDetail from '@/pages/read/detail';
+import ListenView from '@/pages/Listen/view';
+import ListenDetail from '@/pages/Listen/detail';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -51,6 +56,26 @@ const router = createBrowserRouter([
   {
     path: '/skills/grammar/:section',
     element: <GrammarTheoryView />,
+  },
+  {
+    path: '/skills/grammar/:section/:sectionValue',
+    element: <GrammarTheoryDetail />,
+  },
+  {
+    path: 'skills/read',
+    element: <ReadView />,
+  },
+  {
+    path: '/skills/read/:section',
+    element: <ReadDetail />,
+  },
+  {
+    path: '/skills/listen',
+    element: <ListenView />,
+  },
+  {
+    path: '/skills/listen/:section',
+    element: <ListenDetail />,
   },
   {
     path: '/premium',

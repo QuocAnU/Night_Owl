@@ -17,7 +17,7 @@ function GrammarTheoryView() {
   const [loading, setLoading] = useState(false);
 
   const handleNavigate = (value) => {
-    navigate(`/skills/vocal/${sectionKey}/${value}`, { state: { sectionKey: sectionKey, sectionValue: value } });
+    navigate(`/skills/grammar/${sectionKey}/${value}`, { state: { sectionKey: sectionKey, sectionValue: value } });
   };
 
 

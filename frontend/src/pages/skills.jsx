@@ -23,10 +23,10 @@ function Skills() {
         navigate('/skills/grammar');
         break;
       case "Đọc":
-        navigate('/free-test');
+        navigate('/skills/read');
         break;
       case "Nghe":
-        navigate('/free-test');
+        navigate('/skills/listen');
         break;
       default:
         break;
