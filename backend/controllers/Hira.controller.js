@@ -3,7 +3,7 @@ const Hiragana = require('../models/Hira');
 const getHira = async (req, res) => {
     try {
         const { section } = req.query;
-
+        
         if (section) {
             // If a section is specified, fetch Hiragana by section
             const hiragana = await Hiragana.find({ sections: section });

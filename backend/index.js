@@ -7,7 +7,9 @@ const multer = require('multer');
 const upload = multer();
 const cors = require('cors');
 
-const User = require('./models/user');
+const handlePremiumUsers = require('./middlewares/premiumMiddleware');
+
+const UserRoute = require('./routes/userRouter');
 const MediaRoute = require('./routes/mediaRouter');
 const FreeTestRoute = require('./routes/freeTestRouter');
 const KanjiRoute = require('./routes/kanjiRouter');
@@ -16,8 +18,11 @@ const KataRoute = require('./routes/kataRouter');
 const HiraRoute = require('./routes/hiraRouter');
 const GrammarTheoryRoute = require('./routes/grammarTheoryRouter');
 const QuestionRoute = require('./routes/questionRouter');
+const TestGrammarRoute = require('./routes/testGrammarRouter');
+const TestVocalRoute = require('./routes/testVocalRouter');
 
 const PayOS = require('@payos/node');
+const User = require('./models/User');
 
 
 dotenv.config();
@@ -34,7 +39,7 @@ app.use(cors(
 ))
 
 connect();
-
+handlePremiumUsers();
 app.use(bodyParser.json());
 
 app.use(upload.any());
@@ -63,39 +68,7 @@ app.post('/receive-hook', async (req, res) => {
   res.json();
 });
 
-app.post(
-  '/api/webhooks',
-  bodyParser.raw({ type: 'application/json' }),
-  async function (req, res) {
-    try {
-        const payloadString = req.body.toString();
-        const svixHeaders = req.headers;
-
-        const webhook = new Webhook(process.env.CLERK_WEBHOOK_SECRET_KEY);
-        const evt = webhook.verify(payloadString, svixHeaders);
-
-        const { id, ...attributes } = evt.data;
-        const eventType = evt.type;
-
-        if (eventType === 'user.created') {
-            const firstName = attributes.first_name;
-            const lastName = attributes.last_name;
-            const email = attributes.external_accounts[0].email_address;
-            const image = attributes.image_url;
-
-            const user = new User({ clerkUserId: id, firstName, lastName, email, image });
-            await user.save();
-        }
-        res.status(200).json({ success: true, message: 'Webhook received' });
-    } catch (error) {
-        console.log(error);
-        res.status(400).json({ success: false, message: error.message });
-    }
-  },
-);
-
-
-
+app.use('/api', UserRoute);
 app.use('/api', MediaRoute);
 app.use('/api', FreeTestRoute);
 app.use('/api', KanjiRoute);
@@ -104,6 +77,10 @@ app.use('/api', KataRoute);
 app.use('/api', HiraRoute);
 app.use('/api', GrammarTheoryRoute);
 app.use('/api', QuestionRoute);
+app.use('/api', TestGrammarRoute);
+app.use('/api', TestVocalRoute);
+
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });

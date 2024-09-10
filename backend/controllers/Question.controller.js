@@ -120,4 +120,30 @@ const submitAnswerImage = async (req, res) => {
     });
 };
 
-module.exports = { getAllQuestions, submitAnswer, submitAnswerImage };
+const submitAnswerListen = async (req, res) => {
+    try {
+    const {values, section} = req.body;
+    const dataListen = await Question.findOne({group: 'listen', sections: section});
+    const answerChecks = dataListen.answer;
+    
+    let score = 0;
+    const totalQuestions = answerChecks.length;
+
+    answerChecks.forEach((ans, index) => {
+      const userAnswer = values[index];
+      if (userAnswer && userAnswer.toLowerCase() === ans.toLowerCase()) {
+        score += 1;
+      }
+    });
+    res.status(200).json({
+      score,
+      totalQuestions,
+      message: 'Score calculated successfully',
+    });
+  } catch (error) {
+    console.error('Error submitting answers:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+module.exports = { getAllQuestions, submitAnswer, submitAnswerImage, submitAnswerListen };
