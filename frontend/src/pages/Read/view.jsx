@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
 import { Spin } from "antd";
 import { useState, useEffect } from "react";
-import ReadApi from "@/api/Read";
+import ReadApi from "@/api/Question";
 
 
 function ReadView() {

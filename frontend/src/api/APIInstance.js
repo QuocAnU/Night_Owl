@@ -1,12 +1,12 @@
 // apiUtils.js
 import axios from 'axios';
 
-import { API_BASE_URL } from './endpoint'; // Thay đổi URL cơ sở của API của bạn
+// import { API_BASE_URL } from './endpoint'; // Thay đổi URL cơ sở của API của bạn
 
 // Tạo đối tượng axios với cấu hình cơ sở
 const apiClient = axios.create({
-  baseURL: API_BASE_URL || 'http://localhost:5001/api',
-  // baseURL:  'http://localhost:5001/api',
+  // baseURL: API_BASE_URL || 'http://localhost:5001/api',
+  baseURL:  'http://localhost:5001/api',
   headers: {
     'Content-Type': 'application/json',
   },

@@ -1,6 +1,6 @@
-import {get, post} from './../APIInstance';
+import {get, post} from '../APIInstance';
 
-const ReadApi = {
+const QuestionApi = {
     async getReads(token, params) {
         try {
         const data = await get(`/read`, token, params);
@@ -29,7 +29,19 @@ const ReadApi = {
             throw error;
             }
         }, 
+
+    async submitAnswerListen (data, token) {
+        try {
+        const resData = await post('/submit-answer-listen', data, token);
+            return resData;
+            } catch (error) {
+            console.error('Error creating listen:', error);
+            throw error;
+            }
+        },
     };
 
+    
 
-export default ReadApi
+
+export default QuestionApi;

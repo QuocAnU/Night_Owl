@@ -1,11 +1,12 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import { Button } from '@/components/ui/button'
-import { SignInButton } from '@clerk/clerk-react'
-import React from 'react'
-
 import Logo from './../assets/Image/logo.jpg';
 import Logo_1 from './../assets/Image/home.jpg';
+
+import { useEffect } from 'react';
+import UserApi from '../api/User';
+import { useAuth, useUser } from '@clerk/clerk-react';
+
 
 const sections = [
   {
@@ -31,6 +32,32 @@ const sections = [
 ];
 
 function Home() {
+  const { getToken } = useAuth();
+  const { user } = useUser();
+
+  useEffect(() => {
+    const handleLoginSuccess = async () => {
+    try {
+      const token = getToken();
+      if (token && user) {
+        const userInfo = {
+                clerkUserId: user.id,
+                email: user.primaryEmailAddress?.emailAddress,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                imageUrl: user.imageUrl,
+            };
+        await UserApi.create(userInfo, token);
+      }
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw error;
+    }
+  };
+
+  handleLoginSuccess();
+}, [getToken, user]);
+
   const imageStyles = "flex justify-center my-10";
   const textClasses = "text-left text-xl font-normal sm:text-2xl pb-4";
   const textClasses_1 = "text-left text-xl font-normal sm:text-2xl pb-6";

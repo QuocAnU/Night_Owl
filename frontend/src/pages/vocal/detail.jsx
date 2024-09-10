@@ -175,7 +175,9 @@ function VocabularyTest() {
               </button>
             </div>
             <div className='flex justify-center items-center mb-4'>
-              <Button className='bg-[#EAF4FF] text-black' type="primary" >
+              <Button
+               onClick={() => navigate(`/tests/vocal`)}
+               className='bg-[#EAF4FF] text-black' type="primary" >
               <i className="fa-solid fa-arrow-right"></i>
               <span className='text-lg p-2'>Cùng làm test nhé!</span>
               </Button>

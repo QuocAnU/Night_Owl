@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { UserButton, useUser } from '@clerk/clerk-react';
 import { Button } from './ui/button';
 import { Link, useLocation } from 'react-router-dom';
@@ -21,7 +21,7 @@ function Header() {
 
     const headerClasses = isScrolled
         ? 'fixed top-0 left-0 w-full bg-white shadow-md z-50 transition-shadow duration-300'
-        : 'fixed top-0 left-0 w-full z-50';
+        : 'fixed top-0 left-0 w-full z-50 bg-[#6BDCFFC2]';
 
     const navItems = [
         { name: 'Home', path: '/' },
@@ -30,7 +30,7 @@ function Header() {
             paths: ['/skills', '/skills/vocal', '/skills/vocal/:section', '/skills/vocal/:section/:sectionValue'
                 ,'/skills/grammar', '/skills/grammar/:section',
             ]},
-        { name: 'Test', path: '/test' },
+        { name: 'Test', path: '/tests' },
         { name: 'Calendar', path: '/calendar', icon: <i className="fa-regular fa-calendar-days"></i> },
     ];
 

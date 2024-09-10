@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import ReadApi from '@/api/Read';
+import QuestionApi from '@/api/Question';
 import { useAuth } from '@clerk/clerk-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Spin, Form, Button, Radio, Row, Col } from 'antd';
+import { Spin, Form, Button, Input, Row, Col } from 'antd';
 import CommentApi from '@/api/Comment';
-import TopicComponent from '@/components/TopicComponent';
 import CommentComponent from '@/components/CommentComponent';
 import './styles.css'
 import Result from '@/components/Result';
@@ -26,58 +25,30 @@ function ListenDetail() {
     const [score, setScore] = useState(0);
     const [totalQuestions, setTotalQuestions] = useState(0);
     const [success, setSuccess] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
 
-    const handleImageClick = (url) => {
-    setSelectedImage(url);
-  };
+    const [userAnswer, setUserAnswer] = useState();
+
+
 
     const handleSubmit = async (values) => {
+        const extractedValues = Object.values(values);
         try {
             const data = {
-                values: values
+                values: extractedValues,
+                section: sectionKey
             };
+
             const token = await getToken();
-            const res = await ReadApi.submitAnswer(data, token);
-            if (res) {
-                setScore(res.score);
-                setTotalQuestions(res.totalScore);
-                const results = res.results;
-                const updateList = dataList.map((item,index) => {
-                    const {questions} = item;
-                    const update = results[index].updatedQuestions;
-                    const newQuestions = questions.map((question, idx) => {
-                        return update[idx];
-                    });
-
-                    return {...item, questions: newQuestions};
-                })
-                setDataList(updateList);
-                setSuccess(true);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    const handleClickSubmit = async () => {
-        console.log('Selected image:', selectedImage)
-        const data = {
-            questionId: dataList[0]._id,
-            image: selectedImage
-        };
-
-        try {
-            const res = await ReadApi.submitAnswerImage(data);
+            const res = await QuestionApi.submitAnswerListen(data, token);
             if (res) {
                 setScore(res.score);
                 setTotalQuestions(res.totalQuestions);
                 setSuccess(true);
+                setUserAnswer(extractedValues);
             }
         } catch (error) {
             console.error(error);
         }
-
     }
 
     const handleClickDetail = () => {
@@ -114,7 +85,7 @@ function ListenDetail() {
                     group: 'listen',
                     section: sectionKey 
                 };
-                const resourceResponse = await ReadApi.getReads(token, sectionParams);
+                const resourceResponse = await QuestionApi.getReads(token, sectionParams);
 
                 const fromParams = {
                     from: `listen_${sectionKey}`,
@@ -151,7 +122,7 @@ function ListenDetail() {
                     <Spin />
                 </div>
             ) : (
-                <div className='container mx-auto mt-8 sm:mt-12 lg:mt-16'>
+                <div className='container mx-auto mt-4 sm:mt-12 lg:mt-16'>
                     <button
                         onClick={() => navigate('/skills/listen')}
                         className="mt-5 w-4"
@@ -166,32 +137,95 @@ function ListenDetail() {
                         Bài {sectionKey}
                     </div>
 
-                    <div className='flex flex-col justify-center items-center border border-[#0666F6C2] rounded-lg mt-8'>
-                        <div className='flex justify-center mb-4'>
+                    <div className='text-left text-2xl font-normal sm:text-2xl py-4'>
+                        Hãy nghe đoạn văn bên dưới và điền vào chỗ trống những từ còn thiếu:
+                    </div>
+
+                    <div className='flex flex-col justify-center items-center border rounded-lg mt-4'>
+                        <div className='flex justify-center py-4'>
                             <img src={dataList.name} alt={dataList.name} />
                         </div>
                         {detailCheck && (
                             <div className='flex justify-center'>
-                                <img src={dataList.image} alt={dataList.image} />
+                                <img src={dataList.translate} alt={dataList.translate} />
                             </div>
                         )}
-                        <div className='flex justify-center mb-4'>
+                        <div className='flex justify-center mb-6'>
                             <ReactAudioPlayer
                             src={dataList.sound}
                             controls
                             />
                         </div>
-
                     </div>
+                    <Form
+                        className='mt-6'
+                        layout="vertical"
+                        name='listen'
+                        onFinish={handleSubmit}>
+                            <div className='flex flex-col justify-center'>
+                            {dataList.questions.map((question, index) => (
+                                <Form.Item
+                                    key={index}
+                                    name={question}
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Vui lòng trả lời câu hỏi!',
+                                        },
+                                    ]}
+                                >
+                                    <>
+                                    <Row gutter={[16, 16]}>
+                                        <Col xs={24} sm={12} md={8}>
+                                        <div className="flex flex-row items-center justify-center p-2">
+                                            <span className="text-lg font-semibold">{question}</span>
+                                            <i className="fa-solid fa-arrow-right fa-lg mx-4"></i>
+                                            {detailCheck ? (
+                                                <span className="text-lg font-semibold">{userAnswer[index]}</span>
+                                            ): (
+                                                <Input
+                                                placeholder="..."
+                                                className="w-1/3"
+                                                />
+                                            )}
+                                            
+                                        </div>
+                                        </Col>
+                                        <Col xs={24} sm={12} md={8}>
+                                        </Col>
+                                        {detailCheck && (
+                                            <Col xs={24} sm={12} md={8}>
+                                            <div className="flex flex-row items-center justify-center">
+                                                <span className="text-lg font-semibold bg-[#EAF4FF] p-2">{dataList.answer[index]}</span>
+                                            </div>
+                                            </Col>
+                                            )}
+                                    </Row>
+                                    </>                                    
+                                </Form.Item>
+                            ))}
+                            {!detailCheck && (
+                              <div className='flex justify-center'>
+                                <Button 
+                                    htmlType="submit"
+                                    className="w-full sm:w-48 lg:w-56 bg-[#6BDCFF4F] text-[#000] border border-[#0666F6C2] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
+                                >
+                                    <span>Hoàn thành</span>
+                                    <i className="fa-solid fa-arrow-right"></i>
+                                </Button>
+                            </div>  
+                            )}
+                            </div>
+                    </Form>
                 </div>
             )}
             {detailCheck && (   
                 <div className='flex justify-center m-8'>
                               <Button
-                                onClick={() => navigate(`/skills/read`)}
+                                onClick={() => navigate(`/skills/listen`)}
                                 className="w-full sm:w-48 lg:w-56 bg-[#6BDCFF4F] text-[#000] border border-[#0666F6C2] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
                               >
-                                <span>Luyện đọc</span>
+                                <span>Luyện nghe</span>
                                 <i className="fa-solid fa-arrow-right"></i>
                               </Button>
                             </div>

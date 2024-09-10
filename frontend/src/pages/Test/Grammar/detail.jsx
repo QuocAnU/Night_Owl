@@ -1,25 +1,23 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import QuestionApi from '@/api/Question';
+
 import { useAuth } from '@clerk/clerk-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Spin, Button } from 'antd';
 import CommentApi from '@/api/Comment';
-import TopicComponent from '@/components/TopicComponent';
 import CommentComponent from '@/components/CommentComponent';
 import './styles.css'
 import Result from '@/components/Result';
-import QuestionForm from '@/components/QuestionForm';
-import ImageSelection from '@/components/ImageSelection';
+import TestFormComponent from '@/components/TestForm';
+import TestApi from '@/api/Test';
 
-function ReadDetail() {
+function TestGrammarDetail() {
     const location = useLocation();
     const { sectionKey } = location.state || {};
     const { getToken } = useAuth();
     const navigate = useNavigate();
     const [dataList, setDataList] = useState([]);
-    const [topics, setTopics] = useState();
     const [loading, setLoading] = useState(true);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
@@ -28,11 +26,6 @@ function ReadDetail() {
     const [score, setScore] = useState(0);
     const [totalQuestions, setTotalQuestions] = useState(0);
     const [success, setSuccess] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
-
-    const handleImageClick = (url) => {
-    setSelectedImage(url);
-  };
 
     const handleSubmit = async (values) => {
         try {
@@ -40,19 +33,14 @@ function ReadDetail() {
                 values: values
             };
             const token = await getToken();
-            const res = await QuestionApi.submitAnswer(data, token);
+            const res = await TestApi.submitAnswer(data, token);
             if (res) {
                 setScore(res.score);
                 setTotalQuestions(res.totalScore);
                 const results = res.results;
-                const updateList = dataList.map((item,index) => {
-                    const {questions} = item;
-                    const update = results[index].updatedQuestions;
-                    const newQuestions = questions.map((question, idx) => {
-                        return update[idx];
-                    });
-
-                    return {...item, questions: newQuestions};
+                const updateList = dataList.map((item) => {
+                   const result = results.find((r) => r.questionId === item._id);
+                   return {...item, questions: result.updatedQuestions};
                 })
                 setDataList(updateList);
                 setSuccess(true);
@@ -60,26 +48,6 @@ function ReadDetail() {
         } catch (error) {
             console.error(error);
         }
-    }
-
-    const handleClickSubmit = async () => {
-        console.log('Selected image:', selectedImage)
-        const data = {
-            questionId: dataList[0]._id,
-            image: selectedImage
-        };
-
-        try {
-            const res = await QuestionApi.submitAnswerImage(data);
-            if (res) {
-                setScore(res.score);
-                setTotalQuestions(res.totalQuestions);
-                setSuccess(true);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-
     }
 
     const handleClickDetail = () => {
@@ -96,7 +64,7 @@ function ReadDetail() {
             const token = await getToken();
             const newCommentData = {
                 content: newComment,
-                from: `read_${sectionKey}`,
+                from: `test_grammar_${sectionKey}`,
             };
             const res = await CommentApi.createComment(token, newCommentData);
             if (res && res.data) {
@@ -113,19 +81,17 @@ function ReadDetail() {
             try {
                 const token = await getToken();
                 const sectionParams = { 
-                    group: 'read',
                     section: sectionKey 
                 };
-                const resourceResponse = await QuestionApi.getReads(token, sectionParams);
+                const resourceResponse = await TestApi.getTestGrammar(token, sectionParams);
 
                 const fromParams = {
-                    from: `read_${sectionKey}`,
+                    from: `test_grammar_${sectionKey}`,
                 };
 
                 const commentsResponse = await CommentApi.getComments(token, fromParams);
                 if (resourceResponse?.data) {
-                    setDataList(resourceResponse.data.questions);
-                    setTopics(resourceResponse.data.topics);
+                    setDataList(resourceResponse.data);
                 }
 
                 if (commentsResponse?.data) {
@@ -161,39 +127,21 @@ function ReadDetail() {
                     >
                         <i className="fa-solid fa-arrow-left fa-xl"></i>
                     </button>
-                    <div className="text-center text-4xl font-bold sm:text-5xl">
-                        Luyện đọc
-                    </div>
-
                     <div className='text-center text-3xl font-bold sm:text-4xl pt-6'>
                         Bài {sectionKey}
                     </div>
-                    {topics ? (
-                        <>
-                            <TopicComponent topics={topics} detailCheck={detailCheck}   />
-                            <QuestionForm dataList={dataList} detailCheck={detailCheck} onSubmit={handleSubmit} />
-                        </>
-                    ) : (
-                        <>
-                        <ImageSelection 
-                            dataList={dataList} 
-                            detailCheck={detailCheck} 
-                            onImageClick={handleImageClick} 
-                            selectedImage={selectedImage}
-                            onSubmit={handleClickSubmit}
-                        />
-                        </>
-                       
-                    )}
+                    <div>
+                        <TestFormComponent dataList={dataList} detailCheck={detailCheck} onSubmit={handleSubmit} />
+                    </div>
                 </div>
             )}
             {detailCheck && (   
                 <div className='flex justify-center m-8'>
                               <Button
-                                onClick={() => navigate(`/skills/read`)}
+                                onClick={() => navigate(`/tests/grammar`)}
                                 className="w-full sm:w-48 lg:w-56 bg-[#6BDCFF4F] text-[#000] border border-[#0666F6C2] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
                               >
-                                <span>Luyện đọc</span>
+                            <span>Quay lại test</span>
                                 <i className="fa-solid fa-arrow-right"></i>
                               </Button>
                             </div>
@@ -206,4 +154,4 @@ function ReadDetail() {
     )
 }
 
-export default ReadDetail;
+export default TestGrammarDetail;

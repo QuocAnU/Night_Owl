@@ -16,6 +16,12 @@ import ReadView from '@/pages/Read/view';
 import ReadDetail from '@/pages/Read/detail';
 import ListenView from '@/pages/Listen/view';
 import ListenDetail from '@/pages/Listen/detail';
+import TestGrammarView from '@/pages/Test/Grammar/view';
+import TestGrammarDetail from '@/pages/Test/Grammar/detail';
+import TestVocalView from '@/pages/Test/Vocal/view';
+import TestVocalDetail from '@/pages/Test/Vocal/detail';
+
+import Tests from '@/pages/test';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -76,6 +82,26 @@ const router = createBrowserRouter([
   {
     path: '/skills/listen/:section',
     element: <ListenDetail />,
+  },
+  {
+    path: '/tests',
+    element: <Tests />,
+  },
+  {
+    path: '/tests/grammar',
+    element: <TestGrammarView />,
+  },
+  {
+    path: '/tests/grammar/:section',
+    element: <TestGrammarDetail />,
+  },
+  {
+    path: '/tests/vocal',
+    element: <TestVocalView />,
+  },
+  {
+    path: '/tests/vocal/:section',
+    element: <TestVocalDetail />,
   },
   {
     path: '/premium',

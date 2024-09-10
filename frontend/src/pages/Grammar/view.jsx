@@ -32,6 +32,7 @@ function GrammarTheoryView() {
             setListValues(res.data);
             setLoading(false);
           }
+        } else if(sectionKey === 'practice') {
         }
       } catch (error) {
         console.error(error);

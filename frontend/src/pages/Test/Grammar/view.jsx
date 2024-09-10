@@ -5,16 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
 import { Spin } from "antd";
 import { useState, useEffect } from "react";
-import ReadApi from "@/api/Question";
+import TestApi from "@/api/Test";
 
 
-function ListenView() {
+function TestGrammarView() {
     const navigate = useNavigate();
     const { getToken } = useAuth();
     const [loading, setLoading] = useState(false);
     const [listValues, setListValues] = useState([]);
     const handleNavigate = (value) => {
-        navigate(`/skills/listen/${value}`, { state: { sectionKey: value } });
+        navigate(`/tests/grammar/${value}`, { state: { sectionKey: value } });
     };
 
     useEffect(() => {
@@ -22,10 +22,7 @@ function ListenView() {
             try {
                 setLoading(true);
                 const token = await getToken();
-                const params = {
-                    group: 'listen'
-                };
-                const res = await ReadApi.getReads(token,params);
+                const res = await TestApi.getTestGrammar(token);
                 if (res && res.data) {
                     setListValues(res.data);
                     setLoading(false);
@@ -46,13 +43,13 @@ function ListenView() {
             ) : (
                 <div className="flex flex-col px-52">
                     <button
-                        onClick={() => navigate('/skills')}
+                        onClick={() => navigate('/tests')}
                         className="mt-5 w-4"
                     >
                         <i className="fa-solid fa-arrow-left fa-xl"></i>
                     </button>
                     <div className="text-center text-4xl font-bold sm:text-5xl p-8">
-                        Luyện nghe
+                        Test Ngữ Pháp
                     </div>
 
                     <div className='flex flex-col items-center justify-center mt-5'>
@@ -73,4 +70,4 @@ function ListenView() {
   )
 }
 
-export default ListenView
+export default TestGrammarView;

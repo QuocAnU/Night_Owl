@@ -6,26 +6,18 @@ import { useNavigate } from 'react-router-dom';
 const sections = [
   "Từ vựng",
   "Ngữ pháp",
-  "Đọc",
-  "Nghe",
 ]
 
-function Skills() {
+function Tests() {
   const navigate = useNavigate();
 
   const handleClick = (section) => {
     switch (section) {
       case "Từ vựng":
-        navigate('/skills/vocal');
+        navigate('/tests/vocal');
         break;
       case "Ngữ pháp":
-        navigate('/skills/grammar');
-        break;
-      case "Đọc":
-        navigate('/skills/read');
-        break;
-      case "Nghe":
-        navigate('/skills/listen');
+        navigate('/tests/grammar');
         break;
       default:
         break;
@@ -38,7 +30,7 @@ function Skills() {
       <div className="flex-grow mt-16">
         <div className="flex flex-col px-52">
           <div className="text-center text-4xl font-bold sm:text-5xl p-8">
-            Các khóa học tiếng Nhật cùng Night Owl
+            Test
           </div>
           {sections.map((section, index) => (
             <div className="flex justify-center mb-10" key={index}>
@@ -55,4 +47,4 @@ function Skills() {
   )
 }
 
-export default Skills
+export default Tests;

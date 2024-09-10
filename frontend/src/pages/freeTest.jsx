@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '@clerk/clerk-react';
+import { useAuth, useUser } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
 import FreeTestApi from '../api/freeTest';
 import Header from '../components/Header';
 import Footer from '@/components/Footer';
 import { Row, Col, Spin, Form, Input } from 'antd';
 import { Button } from '@/components/ui/button';
+import UserApi from '../api/User';
 
 function FreeTest() {
   const navigate = useNavigate();
@@ -16,6 +17,31 @@ function FreeTest() {
   const [totalQuestions, setTotalQuestions] = useState(0);
   const [hiraganas, setHiraganas] = useState([]);
   const [katakanas, setKatakanas] = useState([]);
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    const handleLoginSuccess = async () => {
+    try {
+      const token = getToken();
+      if (token && user) {
+        const userInfo = {
+                clerkUserId: user.id,
+                email: user.primaryEmailAddress?.emailAddress,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                imageUrl: user.imageUrl,
+            };
+        await UserApi.create(userInfo, token);
+      }
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw error;
+    }
+  };
+
+  handleLoginSuccess();
+}, [getToken, user]);
 
   useEffect(() => {
     const fetchData = async () => {
