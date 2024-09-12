@@ -1,5 +1,7 @@
 const nodemailer = require('nodemailer');
 const oAuth2Client = require('./config/oauth2Config');
+const dotenv = require('dotenv');
+dotenv.config();
 
 // Tạo transporter với OAuth2
 const transporter = nodemailer.createTransport({
@@ -23,7 +25,7 @@ const sendEmail = async (to, customerName) => {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: to,
-      subject: 'Thanh toán thành công!',
+      subject: 'Chúc Mừng Bạn Đã Trở Thành Night Owleaner Premium. V2',
       html: `
       <p>🎁 Cảm ơn bạn đã chọn đồng hành cùng Night Owl 🎁</p>
       <p>Xin chào ${customerName},</p>
@@ -42,13 +44,13 @@ const sendEmail = async (to, customerName) => {
       <p>Night Owl</p>
       <p><img src="cid:logo" alt="Night Owl" /></p>
     `,
-        attachments: [
-        {
-            filename: 'NightOwl_v1.png',
-            path: './path/to/NightOwl_v1.png', // Đường dẫn tới file logo
-            cid: 'logo' // ID cho phần hình ảnh trong email
-        }
-        ],
+        // attachments: [
+        // {
+        //     filename: 'NightOwl_v1.png',
+        //     path: './path/to/NightOwl_v1.png', // Đường dẫn tới file logo
+        //     cid: 'logo' // ID cho phần hình ảnh trong email
+        // }
+        // ],
       auth: {
         accessToken: accessToken.token, // Sử dụng access token
       },
