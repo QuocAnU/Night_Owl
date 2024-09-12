@@ -1,7 +1,6 @@
 const express = require('express');
 const { connect } = require('./config');
 const dotenv = require('dotenv');
-const { Webhook } = require('svix'); // Use the correct import
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer();
@@ -40,7 +39,6 @@ app.use(cors(
 
 connect();
 app.use(bodyParser.json());
-
 app.use(upload.any());
 
 app.post('/api/create-payment-link', async (req, res) => {
