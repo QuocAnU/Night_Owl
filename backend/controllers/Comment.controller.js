@@ -3,17 +3,14 @@ const User = require('../models/User');
 
 const createComment = async (req, res) => {
     try {
-        const { content, from } = req.body;
-        const { userId } = req.auth;
-
-        const user = await User.findOne({clerkUserId: userId});
-
+        const { content, from, clerkUserId } = req.body;
+        const user = await User.findOne({clerkUserId});
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        const { firstName, lastName, image } = user;
+        const { firstName, lastName, imageUrl } = user;
         const username = `${firstName} ${lastName}`;
-        const avatarUrl = image;
+        const avatarUrl = imageUrl;
 
         const comment = new Comment({
             content,

@@ -47,10 +47,11 @@ const submitAnswer = async (req, res) => {
             const question = await Question.findOne({ _id: questionId });
 
             if (!question) {
-                results[questionId] = {
+                results.push({
+                    questionId,
                     success: false,
                     message: 'Question not found',
-                };
+                });
                 return;
             }
 
@@ -86,7 +87,9 @@ const submitAnswer = async (req, res) => {
             totalScore += 1;
 
             results.push({
+                questionId,
                 updatedQuestions,
+                isCorrect,
             });
         })
     );

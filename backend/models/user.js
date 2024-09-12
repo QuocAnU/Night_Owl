@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
         required: function() { return this.premium === true; }, 
         default: null 
     },
+    orderCode: { type: Number, default: null },
 }, { timestamps: true });
 
 // Create the User model

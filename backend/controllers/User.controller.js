@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const UserDiscount = require('../models/UserDiscount');
 
 const createUser = async (req, res) => {
     try {
@@ -23,6 +24,37 @@ const createUser = async (req, res) => {
     }
 };
 
+const getUser = async (req, res) => {
+    try {
+        const { clerkUserId } = req.query;
+        const user = await User.findOne({ clerkUserId });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ data: user, message: 'success' });
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+
+const getUserDiscount = async (req, res) => {
+    try {
+        console.log(req.query);
+        const { clerkUserId, type } = req.query;
+        const userDiscount = await UserDiscount.findOne({ clerkUserId, type });
+        if (!userDiscount) {
+            return res.status(404).json({ message: 'User discount not found' });
+        }
+        res.status(200).json({ data: userDiscount, message: 'success' });
+    } catch (error) {
+        console.error('Error fetching user discount:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+
 module.exports = {
-    createUser
+    createUser, getUser, getUserDiscount
 }
