@@ -1,4 +1,4 @@
-const User = require('../models/User.js');
+const User = require('./../models/User');
 const UserDiscount = require('../models/UserDiscount');
 
 const createUser = async (req, res) => {
