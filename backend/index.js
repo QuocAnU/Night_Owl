@@ -19,6 +19,7 @@ const QuestionRoute = require('./routes/questionRouter');
 const TestGrammarRoute = require('./routes/testGrammarRouter');
 const TestVocalRoute = require('./routes/testVocalRouter');
 const ExeGrammarRoute = require('./routes/exeGrammarRouter');
+const { sendEmail} = require('./emailService');
 
 const PayOS = require('@payos/node');
 const User = require('./models/User');
@@ -60,10 +61,10 @@ app.post('/api/create-payment-link', async (req, res) => {
       amount,
       orderCode,
       description: `Payment for order ${orderCode}`,
-      // returnUrl: "http://localhost:5173/profile",
-      returnUrl: "https://night-owl-xn17.vercel.app/profile",
-      // cancelUrl: "http://localhost:5173/premium",
-      cancelUrl: "https://night-owl-xn17.vercel.app/premium",
+      returnUrl: "http://localhost:5173/profile",
+      // returnUrl: "https://night-owl-xn17.vercel.app/profile",
+      cancelUrl: "http://localhost:5173/premium",
+      // cancelUrl: "https://night-owl-xn17.vercel.app/premium",
     };
 
     const paymentLink = await payos.createPaymentLink(order);
@@ -97,6 +98,10 @@ app.post('/receive-hook', async (req, res) => {
       { premium: true, plan: plan, remainingDays: remainingDays },              
       { new: true, upsert: false }
     );
+
+    const userEmail = user.email;
+    const customerName = user.firstName + ' ' + user.lastName;
+    await sendEmail(userEmail, customerName);
   }
   res.json();
 });
