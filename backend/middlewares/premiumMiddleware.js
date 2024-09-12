@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-const User = require('./models/User'); // Adjust the path as needed
+const User = require('./../models/User'); // Adjust the path as needed
 
 const handlePremiumUsers = () => {
     // Schedule a cron job to run every day at midnight
