@@ -7,7 +7,6 @@ const multer = require('multer');
 const upload = multer();
 const cors = require('cors');
 
-const handlePremiumUsers = require('./middlewares/premiumMiddleware');
 
 const UserRoute = require('./routes/userRouter');
 const MediaRoute = require('./routes/mediaRouter');
@@ -40,7 +39,6 @@ app.use(cors(
 ))
 
 connect();
-handlePremiumUsers();
 app.use(bodyParser.json());
 
 app.use(upload.any());
