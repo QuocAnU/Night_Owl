@@ -11,12 +11,10 @@ const userSchema = new mongoose.Schema({
     plan: { 
         type: String, 
         enum: ['basic', 'standard', 'premium'], 
-        required: function() { return this.premium === true; }, 
         default: null 
     },
     remainingDays: { 
         type: Number, 
-        required: function() { return this.premium === true; }, 
         default: null 
     },
     orderCode: { type: Number, default: null },
