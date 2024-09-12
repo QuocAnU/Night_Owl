@@ -1,6 +1,5 @@
 const UserDiscount = require('../models/UserDiscount');
 const User = require('../models/User');
-
 const createUser = async (req, res) => {
     try {
         const { clerkUserId, firstName, lastName, email, imageUrl } = req.body;
