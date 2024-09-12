@@ -1,68 +1,73 @@
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import { Button } from '@/components/ui/button'
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { Button } from '@/components/ui/button';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@clerk/clerk-react';
-import  KanjiApi  from '@/api/Vocal/kanji';
-import HiraApi  from '@/api/Vocal/hira';
-import KataApi  from '@/api/Vocal/kata';
-import { useState , useEffect } from 'react';
+import KanjiApi from '@/api/Vocal/kanji';
+import HiraApi from '@/api/Vocal/hira';
+import KataApi from '@/api/Vocal/kata';
+import { useState, useEffect } from 'react';
 import { Spin } from 'antd';
-
 
 function Skills() {
   const navigate = useNavigate();
   const location = useLocation();
   const { sectionKey } = location.state || {};
-  const { getToken } = useAuth();
+  const { isSignedIn, getToken } = useAuth();
   const [listValues, setListValues] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const handleNavigate = (value) => {
-    navigate(`/skills/vocal/${sectionKey}/${value}`, { state: { sectionKey: sectionKey, sectionValue: value } });
+    navigate(`/skills/vocal/${sectionKey}/${value}`, {
+      state: { sectionKey: sectionKey, sectionValue: value },
+    });
   };
-
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!isSignedIn) {
+        navigate('/login', { state: { redirectTo: "/skills/vocal" } }); // Redirect to login if not signed in
+        return;
+      }
+
       try {
         setLoading(true);
         const token = await getToken();
-        if(sectionKey === 'Kanji') {
-          const res = await KanjiApi.getKanji(token)
+
+        if (sectionKey === 'Kanji') {
+          const res = await KanjiApi.getKanji(token);
           if (res && res.data) {
             setListValues(res.data);
-            setLoading(false);
           }
-        } else if(sectionKey === 'Hiragana') {
-          const res = await HiraApi.getHira(token)
+        } else if (sectionKey === 'Hiragana') {
+          const res = await HiraApi.getHira(token);
           if (res && res.data) {
             setListValues(res.data);
-            setLoading(false);
           }
-        } else if(sectionKey === 'Katakana') {
-          const res = await KataApi.getKata(token)
+        } else if (sectionKey === 'Katakana') {
+          const res = await KataApi.getKata(token);
           if (res && res.data) {
             setListValues(res.data);
-            setLoading(false);
           }
         }
       } catch (error) {
         console.error(error);
+      } finally {
         setLoading(false);
       }
     };
-    fetchData();
-  }, [getToken, sectionKey]);
 
-    return (
-      <div className="flex flex-col min-h-screen">
-        <Header />
-        <div className="flex-grow mt-16">
-          {loading ? (
-            <Spin />
-          ) : (
-            <div className="flex flex-col px-52">
+    fetchData();
+  }, [getToken, sectionKey, isSignedIn, navigate]);
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <div className="flex-grow mt-20">
+        {loading ? (
+          <Spin />
+        ) : (
+          <div className="flex flex-col px-52">
             <button
               onClick={() => navigate('/skills/vocal')}
               className="mt-5 w-4"
@@ -74,20 +79,21 @@ function Skills() {
             </div>
             <div className="flex flex-col items-center justify-center mt-5">
               {listValues.map((value, index) => (
-                  <Button
-                    key={index}
-                    onClick={() => handleNavigate(value)}
-                    className="w-60 bg-[#EAF4FF] text-[#000] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300">
-                    {`Bài ${value}`}
-                  </Button>
+                <Button
+                  key={index}
+                  onClick={() => handleNavigate(value)}
+                  className="w-60 bg-[#EAF4FF] text-[#000] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
+                >
+                  {`Bài ${value}`}
+                </Button>
               ))}
             </div>
           </div>
-          )}
-        </div>
-        <Footer />
+        )}
       </div>
-    )
+      <Footer />
+    </div>
+  );
 }
 
-export default Skills
+export default Skills;

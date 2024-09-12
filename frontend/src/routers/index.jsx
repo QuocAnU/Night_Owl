@@ -20,7 +20,9 @@ import TestGrammarView from '@/pages/Test/Grammar/view';
 import TestGrammarDetail from '@/pages/Test/Grammar/detail';
 import TestVocalView from '@/pages/Test/Vocal/view';
 import TestVocalDetail from '@/pages/Test/Vocal/detail';
-
+import ProfilePage from '@/pages/profile';
+import ExeGrammarView from '@/pages/Grammar/Exe/Grammar/view';
+import ExeGrammarDetail from '@/pages/Grammar/Exe/Grammar/detail';
 import Tests from '@/pages/test';
 const router = createBrowserRouter([
   {
@@ -60,11 +62,19 @@ const router = createBrowserRouter([
     element: <GrammarLayout />,
   },
   {
-    path: '/skills/grammar/:section',
+    path: '/skills/grammar/theory',
     element: <GrammarTheoryView />,
   },
   {
-    path: '/skills/grammar/:section/:sectionValue',
+    path: '/skills/grammar/practice',
+    element: <ExeGrammarView />,
+  },
+  {
+    path: '/skills/grammar/practice/:sectionValue',
+    element: <ExeGrammarDetail />,
+  },
+  {
+    path: '/skills/grammar/theory/:sectionValue',
     element: <GrammarTheoryDetail />,
   },
   {
@@ -110,6 +120,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginPage />,
+  },
+  {
+    path: '/profile',
+    element: <ProfilePage />,
   }
 ]);
 

@@ -1,11 +1,27 @@
 import { useState, useEffect } from 'react'
-import { UserButton, useUser } from '@clerk/clerk-react';
+import {  useUser, SignOutButton } from '@clerk/clerk-react';
 import { Button } from './ui/button';
 import { Link, useLocation } from 'react-router-dom';
+import { Dropdown, Menu, Avatar } from 'antd';
+import { useNavigate } from 'react-router-dom';
+
+
 
 function Header() {
     const { user, isSignedIn } = useUser();
     const location = useLocation();
+    const navigate = useNavigate();
+    
+    const UserMenu = (
+        <Menu>
+            <Menu.Item>
+                <Link to="/profile">Profile</Link>
+            </Menu.Item>
+            <Menu.Item>
+                <SignOutButton>Sign Out</SignOutButton>
+            </Menu.Item>
+        </Menu>
+    )
     
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -28,9 +44,14 @@ function Header() {
         { name: 'Free Lessons', paths: ['/freeLessons', '/freeLessons/Hiragana&Katakana', '/freeTest'] },
         { name: 'Skills', 
             paths: ['/skills', '/skills/vocal', '/skills/vocal/:section', '/skills/vocal/:section/:sectionValue'
-                ,'/skills/grammar', '/skills/grammar/:section',
+                ,'/skills/grammar', '/skills/grammar/:section', '/skills/grammar/:section/:sectionValue',
+                '/skills/read', '/skills/read/:section',
+                '/skills/listen', '/skills/listen/:section'
             ]},
-        { name: 'Test', path: '/tests' },
+        { name: 'Test', path: '/tests', paths: ['/tests', '/tests/vocal', 
+            '/tests/vocal/:section',
+            '/tests/grammar', '/tests/grammar/:section',
+        ] },
         { name: 'Calendar', path: '/calendar', icon: <i className="fa-regular fa-calendar-days"></i> },
     ];
 
@@ -48,7 +69,7 @@ function Header() {
     return (
         <header className={headerClasses}>
             <div className="flex justify-between items-center p-5">
-                <h1 className="text-xl font-bold">Night Owl</h1>
+                <h1 onClick={() =>  navigate('/')} style={{ cursor: 'pointer' }} className="text-xl font-bold">Night Owl</h1>
                 
                 {/* Mobile Menu Button */}
                 <button 
@@ -77,7 +98,13 @@ function Header() {
                 {/* Sign In or User Button */}
                 <div className="flex items-center">
                     {isSignedIn ? (
-                        <UserButton />
+                        <Dropdown overlay={UserMenu} trigger={['click']}>
+                            <Avatar
+                                src={user.imageUrl} // Clerk provides the user's profile image URL
+                                size="large"
+                                className="cursor-pointer"
+                            />
+                        </Dropdown>
                     ) : (
                          <Link to="/login" state={{ redirectTo: "/" }}>
                             <Button>Sign in</Button>

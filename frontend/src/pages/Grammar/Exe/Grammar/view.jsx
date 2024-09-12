@@ -5,16 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
 import { Spin } from "antd";
 import { useState, useEffect } from "react";
-import TestApi from "@/api/Test";
+import exeGrammarApi from "@/api/Grammar/Practice";
 
 
-function TestGrammarView() {
+function ExeGrammarView() {
     const navigate = useNavigate();
     const { isSignedIn, getToken } = useAuth();
     const [loading, setLoading] = useState(false);
     const [listValues, setListValues] = useState([]);
     const handleNavigate = (value) => {
-        navigate(`/tests/grammar/${value}`, { state: { sectionKey: value } });
+        navigate(`/skills/grammar/practice/${value}`, { state: { sectionKey: value } });
     };
 
     useEffect(() => {
@@ -27,7 +27,7 @@ function TestGrammarView() {
             try {
                 setLoading(true);
                 const token = await getToken();
-                const res = await TestApi.getTestGrammar(token);
+                const res = await exeGrammarApi.getExeGrammar(token);
                 if (res && res.data) {
                     setListValues(res.data);
                     setLoading(false);
@@ -48,13 +48,13 @@ function TestGrammarView() {
             ) : (
                 <div className="flex flex-col px-52">
                     <button
-                        onClick={() => navigate('/tests')}
+                        onClick={() => navigate('/skills/grammar')}
                         className="mt-5 w-4"
                     >
                         <i className="fa-solid fa-arrow-left fa-xl"></i>
                     </button>
                     <div className="text-center text-4xl font-bold sm:text-5xl p-8">
-                        Test Ngữ Pháp
+                        Bài tập Ngữ Pháp
                     </div>
 
                     <div className='flex flex-col items-center justify-center mt-5'>
@@ -75,4 +75,4 @@ function TestGrammarView() {
   )
 }
 
-export default TestGrammarView;
+export default ExeGrammarView;

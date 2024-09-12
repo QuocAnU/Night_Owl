@@ -125,7 +125,7 @@ function ListenDetail() {
                 <div className='container mx-auto mt-4 sm:mt-12 lg:mt-16'>
                     <button
                         onClick={() => navigate('/skills/listen')}
-                        className="mt-5 w-4"
+                        className="mt-10 w-4"
                     >
                         <i className="fa-solid fa-arrow-left fa-xl"></i>
                     </button>

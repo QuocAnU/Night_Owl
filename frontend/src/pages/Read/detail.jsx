@@ -45,14 +45,9 @@ function ReadDetail() {
                 setScore(res.score);
                 setTotalQuestions(res.totalScore);
                 const results = res.results;
-                const updateList = dataList.map((item,index) => {
-                    const {questions} = item;
-                    const update = results[index].updatedQuestions;
-                    const newQuestions = questions.map((question, idx) => {
-                        return update[idx];
-                    });
-
-                    return {...item, questions: newQuestions};
+                const updateList = dataList.map((item) => {
+                    const result = results.find((r) => r.questionId === item._id);
+                    return {...item, questions: result.updatedQuestions};
                 })
                 setDataList(updateList);
                 setSuccess(true);
@@ -157,7 +152,7 @@ function ReadDetail() {
                 <div className='container mx-auto mt-8 sm:mt-12 lg:mt-16'>
                     <button
                         onClick={() => navigate('/skills/read')}
-                        className="mt-5 w-4"
+                        className="mt-10 w-4"
                     >
                         <i className="fa-solid fa-arrow-left fa-xl"></i>
                     </button>

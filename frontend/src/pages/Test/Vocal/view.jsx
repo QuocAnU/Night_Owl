@@ -10,7 +10,7 @@ import TestApi from "@/api/Test";
 
 function TestVocalView() {
     const navigate = useNavigate();
-    const { getToken } = useAuth();
+    const { isSignedIn, getToken } = useAuth();
     const [loading, setLoading] = useState(false);
     const [listValues, setListValues] = useState([]);
     const handleNavigate = (value) => {
@@ -19,6 +19,10 @@ function TestVocalView() {
 
     useEffect(() => {
         const fetchData = async () => {
+            if (!isSignedIn) {
+                navigate('/login', { state: { redirectTo: "/tests" } }); // Redirect to login if not signed in
+                return;
+            }
             try {
                 setLoading(true);
                 const token = await getToken();
@@ -33,11 +37,11 @@ function TestVocalView() {
             }
         };
         fetchData();
-    }, [getToken]);
+    }, [getToken, isSignedIn, navigate]);
   return (
     <div className=" flex flex-col min-h-screen">
         <Header/>
-        <div className="flex-grow justify-center mt-16">
+        <div className="flex-grow justify-center mt-20">
             {loading ? (
                 <Spin />
             ) : (

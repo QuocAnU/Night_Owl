@@ -27,7 +27,7 @@ function Tests() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="flex-grow mt-16">
+      <div className="flex-grow mt-20">
         <div className="flex flex-col px-52">
           <div className="text-center text-4xl font-bold sm:text-5xl p-8">
             Test

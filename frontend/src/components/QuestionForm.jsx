@@ -40,7 +40,7 @@ function QuestionForm({ dataList, detailCheck, onSubmit }) {
                                                         </Radio.Button>
                                                     </div>
                                                     {detailCheck && (
-                                                        <span className="text-xl font-normal mb-3 p-1">{question.translate_question}</span>
+                                                        <span className="text-xl font-normal mb-3 p-1" style= {{color: ['#34A853', '#E94444'].includes(question.color) ? question.color : '#000'}}>{value.translate_question[index]}</span>
                                                     )}
                                                 </div>
                                             ))}

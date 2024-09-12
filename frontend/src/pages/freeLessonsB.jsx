@@ -2,7 +2,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { useUser } from '@clerk/clerk-react';
 import { Modal } from 'antd';
 
@@ -43,8 +43,7 @@ const katakanaSections = [
 
 function FreeLessonsB() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { user, isSignedIn } = useUser();
+  const {  isSignedIn } = useUser();
   const [showConfirmLogin, setShowConfirmLogin] = useState(false);
 
   useEffect(() => {
@@ -79,7 +78,7 @@ function FreeLessonsB() {
   return (
     <div>
       <Header />
-      <div className='mt-8 sm:mt-12 lg:mt-16'>
+      <div className='mt-20 sm:mt-12 lg:mt-20'>
         <div className='flex flex-col px-4 sm:px-8 lg:px-16'>
           <div className="text-center text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl p-4 sm:p-6 lg:p-8">
             Bảng chữ cái tiếng Nhật

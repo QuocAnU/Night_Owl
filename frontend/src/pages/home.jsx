@@ -65,7 +65,7 @@ function Home() {
   return (
     <div>
       <Header />
-      <div className='mt-16 px-4 sm:px-40'>
+      <div className='mt-20 px-4 sm:px-40'>
         <div className='text-center text-3xl font-bold sm:text-5xl p-8'>
           Học tiếng Nhật cùng Night Owl
         </div>

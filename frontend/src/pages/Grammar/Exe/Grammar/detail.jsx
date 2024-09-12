@@ -10,9 +10,9 @@ import CommentComponent from '@/components/CommentComponent';
 import './styles.css'
 import Result from '@/components/Result';
 import TestFormComponent from '@/components/TestForm';
-import TestApi from '@/api/Test';
+import exeGrammarApi from '@/api/Grammar/Practice';
 
-function TestGrammarDetail() {
+function ExeGrammarDetail() {
     const location = useLocation();
     const { sectionKey } = location.state || {};
     const { getToken } = useAuth();
@@ -33,7 +33,7 @@ function TestGrammarDetail() {
                 values: values
             };
             const token = await getToken();
-            const res = await TestApi.submitAnswer(data, token);
+            const res = await exeGrammarApi.submitAnswer(data, token);
             if (res) {
                 setScore(res.score);
                 setTotalQuestions(res.totalScore);
@@ -64,7 +64,7 @@ function TestGrammarDetail() {
             const token = await getToken();
             const newCommentData = {
                 content: newComment,
-                from: `test_grammar_${sectionKey}`,
+                from: `exe_grammar_${sectionKey}`,
             };
             const res = await CommentApi.createComment(token, newCommentData);
             if (res && res.data) {
@@ -83,10 +83,10 @@ function TestGrammarDetail() {
                 const sectionParams = { 
                     section: sectionKey 
                 };
-                const resourceResponse = await TestApi.getTestGrammar(token, sectionParams);
+                const resourceResponse = await exeGrammarApi.getExeGrammar(token, sectionParams);
 
                 const fromParams = {
-                    from: `test_grammar_${sectionKey}`,
+                    from: `exe_grammar_${sectionKey}`,
                 };
 
                 const commentsResponse = await CommentApi.getComments(token, fromParams);
@@ -120,9 +120,9 @@ function TestGrammarDetail() {
                     <Spin />
                 </div>
             ) : (
-                <div className='container mx-auto mt-8 sm:mt-12 lg:mt-16'>
+                <div className='container mx-auto mt-20 sm:mt-12 lg:mt-16'>
                     <button
-                        onClick={() => navigate('/tests/grammar')}
+                        onClick={() => navigate('/skills/grammar/practice')}
                         className="mt-10 w-4"
                     >
                         <i className="fa-solid fa-arrow-left fa-xl"></i>
@@ -154,4 +154,4 @@ function TestGrammarDetail() {
     )
 }
 
-export default TestGrammarDetail;
+export default ExeGrammarDetail;

@@ -77,7 +77,7 @@ function GrammarTheoryDetail() {
             ) : (
                 <div className='mt-8 sm:mt-12 lg:mt-16'>
                     <button
-                        onClick={() => navigate(`/skills/grammar/${section}`, { state: { sectionKey: section } })}
+                        onClick={() => navigate(`/skills/grammar/theory`)}
                         className="mt-8 ml-20 w-4"
                     >
                         <i className="fa-solid fa-arrow-left fa-xl"></i>

@@ -8,14 +8,15 @@ import CommentApi from '@/api/Comment';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useNavigate,useLocation } from 'react-router-dom';
-import { Spin, Form, Input, Button } from 'antd';
-import { useAuth } from '@clerk/clerk-react';
+import { Spin, Button } from 'antd';
+import { useAuth, useUser } from '@clerk/clerk-react';
 import './styles.css'
 import CommentComponent from '@/components/CommentComponent';
 function VocabularyTest() {
   const { section } = useParams();
   const location = useLocation();
   const { sectionValue } = location.state || {};
+  const { user } = useUser();
   const { getToken } = useAuth();
   const navigate = useNavigate();
   const [dataList, setDataList] = useState([]);
@@ -82,6 +83,7 @@ function VocabularyTest() {
       const newCommentData = {
         content: newComment,
         from: `vocal_${section}`,
+        clerkUserId: user?.id,
       };
       const res = await CommentApi.createComment(token, newCommentData);
       if (res && res.data) {

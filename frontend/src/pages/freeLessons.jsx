@@ -40,7 +40,7 @@ function FreeLessons() {
   return (
     <div>
       <Header />
-      <div className='mt-16'>
+      <div className='mt-20'>
         <div className='flex flex-col px-4 sm:px-8 md:px-20'>
           <div className="text-center text-3xl font-bold sm:text-4xl md:text-5xl p-6 sm:p-8">
             Bảng chữ cái tiếng Nhật

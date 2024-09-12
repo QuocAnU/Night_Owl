@@ -150,7 +150,7 @@ function FreeTest() {
       <div className='flex flex-col min-h-screen'>
         <Header />
         <main className="flex-grow">
-        <div className='mt-16 px-4 sm:px-8 md:px-16 lg:px-32'>
+        <div className='mt-20 px-4 sm:px-8 md:px-16 lg:px-32'>
           <div className="flex flex-col justify-center items-center px-4 sm:px-8 lg:px-16">
           <div className='text-center text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl p-4 sm:p-6 lg:p-8'>Kết quả</div>
         <div className='text-center text-1xl font-bold sm:text-2xl md:text-3xl lg:text-4xl p-4 sm:p-6 lg:p-8'>{score}/{totalQuestions}</div>

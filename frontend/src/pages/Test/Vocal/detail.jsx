@@ -120,8 +120,8 @@ function TestVocalDetail() {
             ) : (
                 <div className='container mx-auto mt-8 sm:mt-12 lg:mt-16'>
                     <button
-                        onClick={() => navigate('/skills/read')}
-                        className="mt-5 w-4"
+                        onClick={() => navigate('/tests/vocal')}
+                        className="mt-10 w-4"
                     >
                         <i className="fa-solid fa-arrow-left fa-xl"></i>
                     </button>
