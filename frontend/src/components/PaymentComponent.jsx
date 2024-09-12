@@ -65,7 +65,7 @@ const SubscriptionModal = ({ visible, onClose, plan }) => {
         <hr className="my-4"/>
         {listDiscount && (
           <div>
-            showDiscount ? (
+            {showDiscount ? (
                 <div className="flex justify-between items-center">
                 <span className="font-normal text-xl border rounded-lg px-2 ">{listDiscount.name}</span>
                 <i className="fa-solid fa-xmark" onClick={() => setShowDiscount(false)}></i>
@@ -74,7 +74,7 @@ const SubscriptionModal = ({ visible, onClose, plan }) => {
                 <span className="font-bold text-[#0037C5]" onClick={() => setShowDiscount(true)} >
                     Add discount
                 </span>
-            )
+            )}
             <hr className="my-4"/>
           </div>
         )}
@@ -100,26 +100,7 @@ const SubscriptionModal = ({ visible, onClose, plan }) => {
             )}
         </div>
       </div>
-      <Form onFinish={handleContinue} layout="vertical">
-        <Form.Item
-          label="Email address"
-          name="email"
-          rules={[{ required: true, message: "Vui lòng nhập email!" }]}
-        >
-          <Input placeholder="Nhập email của bạn" />
-        </Form.Item>
-
-        <Form.Item
-          label="Country"
-          name="country"
-          rules={[{ required: true, message: "Vui lòng chọn quốc gia!" }]}
-        >
-          <Select placeholder="Chọn quốc gia">
-            <Option value="Viet Nam">Viet Nam</Option>
-            {/* Add more countries as needed */}
-          </Select>
-        </Form.Item>
-        
+      <Form onFinish={handleContinue} layout="vertical">   
         <Form.Item >
             <div className="flex items-center ">
                 <Input style={{width: '1rem', height: '1rem'}} type="checkbox" /> 
