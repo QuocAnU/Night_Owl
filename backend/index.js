@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer();
 const cors = require('cors');
+const cron = require('node-cron');
 
 
 const UserRoute = require('./routes/userRouter');
@@ -23,6 +24,7 @@ const { sendEmail} = require('./emailService');
 
 const PayOS = require('@payos/node');
 const User = require('./models/User');
+
 
 
 dotenv.config();
@@ -104,6 +106,23 @@ app.post('/receive-hook', async (req, res) => {
     await sendEmail(userEmail, customerName);
   }
   res.json();
+});
+
+cron.schedule('0 0 * * *', async () => {
+  const users = await User.find({ premium: true });
+
+  for (const user of users) {
+    if (user.remainingDays > 0) {
+      user.remainingDays -=1;
+    }
+
+    if(user.remainingDays === 0) {
+      user.premium = false;
+      user.plan = null;
+      user.remainingDays = null;
+    }
+    await user.save();
+  }
 });
 
 app.use('/api', UserRoute);
