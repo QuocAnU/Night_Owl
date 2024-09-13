@@ -18,6 +18,20 @@ const userSchema = new mongoose.Schema({
         default: null 
     },
     orderCode: { type: Number, default: null },
+    checkInDays: {
+        type: Number,
+        default: 0
+    },
+    totalCheckInDays: {
+        type: Number,
+        default: 0
+    },
+    attendance: [
+        {
+            date: { type: Date },
+            status: { type: string, enum: ['present', 'absent'], default: 'absent'}
+        }
+    ],
 }, { timestamps: true });
 
 // Create the User model
