@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import UserApi from '@/api/User';
 import { useEffect, useState } from 'react';
 import { useAuth, useUser } from '@clerk/clerk-react';
+import { Spin } from 'antd';
 
 const sections = [
   "Từ vựng",
@@ -17,12 +18,12 @@ function Skills() {
   const navigate = useNavigate();
   const { getToken } = useAuth();
   const { user } = useUser();
-
+  const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState(null);
   const [showPopup, setShowPopup] = useState(false); // State to control the popup visibility
 
   const handleClick = (section) => {
-    if (profile?.premium) {
+    if (profile && profile.premium) {
       // Navigate to the appropriate section if the user is premium
       switch (section) {
         case "Từ vựng":
@@ -61,6 +62,7 @@ function Skills() {
           const response = await UserApi.getUser(token, params);
           if (response && response.data) {
             setProfile(response.data);
+            setLoading(false);
           }
         }
       } catch (error) {
@@ -70,11 +72,17 @@ function Skills() {
     fetchData();
   }, [getToken, user]);
 
+  
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <div className="flex-grow mt-20">
-        <div className="flex flex-col">
+        {loading ? (
+          <div className="flex justify-center mt-20 sm:mt-12 lg:mt-16">
+            <Spin />
+          </div>
+        ) : (
+          <div className="flex flex-col">
           <div className="text-center text-4xl font-bold sm:text-5xl p-8">
             Các khóa học tiếng Nhật cùng Night Owl
           </div>
@@ -88,6 +96,7 @@ function Skills() {
             </div>
           ))}
         </div>
+        )}
       </div>
       <Footer />
 

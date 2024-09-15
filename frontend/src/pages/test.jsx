@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuth, useUser } from '@clerk/clerk-react';
 import UserApi from '@/api/User';
+import { Spin } from 'antd';
 
 const sections = [
   "Từ vựng",
@@ -15,7 +16,7 @@ function Tests() {
   const navigate = useNavigate();
   const { getToken } = useAuth();
   const { user } = useUser();
-
+  const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState(null); // State to store profile
   const [showPopup, setShowPopup] = useState(false); // State for popup visibility
 
@@ -53,6 +54,7 @@ function Tests() {
           const response = await UserApi.getUser(token, params);
           if (response && response.data) {
             setProfile(response.data);
+            setLoading(false);
           }
         }
       } catch (error) {
@@ -65,7 +67,12 @@ function Tests() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="flex-grow mt-20">
+      {loading ? (
+        <div className="flex justify-center mt-20 sm:mt-12 lg:mt-16">
+          <Spin />
+        </div>
+      ) : (
+         <div className="flex-grow mt-20">
         <div className="flex flex-col">
           <div className="text-center text-4xl font-bold sm:text-5xl p-8">
             Test
@@ -82,6 +89,8 @@ function Tests() {
           ))}
         </div>
       </div>
+      )}
+     
       <Footer />
 
       {showPopup && (
