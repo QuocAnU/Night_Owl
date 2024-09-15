@@ -37,6 +37,9 @@ const SubscriptionModal = ({ visible, onClose, plan }) => {
                 orderCode: Math.floor(Math.random() * 10000000),
                 clerkUserId: user?.id,
             }
+            if(showDiscount) {
+                data.type = plan?.type;
+            }
             const response = await PaymentApi.createPayment(data);
             if (response && response.checkoutUrl) {
                 window.location.href = response.checkoutUrl;
@@ -55,8 +58,7 @@ const SubscriptionModal = ({ visible, onClose, plan }) => {
       footer={null}
     >
       <div className="mb-4 flex flex-col">
-        <span className="font-bold text-[#0037C5] text-3xl mb-4">7 days free</span>
-        <div className="flex justify-between">
+        <div className="flex justify-between mt-6">
             <span>Night owl Premium account - {plan?.type === 1 ? "30 Days" : (plan?.type === 2 ? "6 Months" : "Years")}</span>
             <span className="font-bold">{plan?.price}</span>
         </div>
@@ -108,9 +110,13 @@ const SubscriptionModal = ({ visible, onClose, plan }) => {
             </div>
         </Form.Item>   
         <Form.Item>
-        <Button type="primary" htmlType="submit" className="w-full">
+            <div className="flex justify-center">
+                <Button type="primary" htmlType="submit" 
+              className="w-48 sm:w-56 md:w-60 bg-[#6BDCFF4F] text-[#000] border border-[#0666F6C2] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300">
           Continue
         </Button>
+            </div>
+        
         </Form.Item>
       </Form>
     </Modal>

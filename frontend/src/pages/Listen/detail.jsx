@@ -111,7 +111,7 @@ function ListenDetail() {
     if(success) {
         return (
             <Result score={score} totalQuestions={totalQuestions} onDetailClick={handleClickDetail} sectionKey={sectionKey}
-            key={"nghe"}
+            keys={"nghe"}
             title={"của phần luyện nghe"}
             />
         );

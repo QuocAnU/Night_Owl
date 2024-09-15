@@ -52,7 +52,7 @@ const VoucherModal = ({ isModalVisible, handleOk, handleCancel, title }) => {
     >
       {voucher && (
         <div className='flex flex-col md:flex-row items-center justify-center md:h-full bg-cover rounded-lg' style={{ backgroundColor: voucher.color }}>
-          <div className='flex flex-col justify-center items-center w-full h-full px-4 py-8 md:px-0'>
+          <div className='flex flex-col justify-center items-center w-full h-full px-4 md:px-0'>
             <span className='font-bold text-white text-3xl md:text-5xl'>Voucher</span>
             <span className='font-bold text-white text-6xl md:text-9xl'>{voucher.amount}</span>
             <div className='mt-2 md:mt-4'>

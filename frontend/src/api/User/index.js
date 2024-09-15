@@ -38,7 +38,17 @@ const UserApi = {
             console.error('Error fetching user:', error);
             throw error;
         }
-    } 
+    },
+
+    async getFreePremium (token, params) {
+        try {
+            const response = await get('/users/free-premium', token, params);
+            return response;
+        } catch (error) {
+            console.error('Error fetching user:', error);
+            throw error;    
+        }
+    }
 };
 
 export default UserApi

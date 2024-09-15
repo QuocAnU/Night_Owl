@@ -55,6 +55,12 @@ function CheckIn() {
                     alert(res.message);
                 } else if (res && res.error_code === 0) {
                     alert("Voucher đã được nhận");
+                } else if (res && res.error_code === 11) {
+                    alert(res.message);
+                } else if (res && res.error_code === 12) {
+                    alert(res.message);
+                } else if (res && res.error_code === 13) {
+                    alert(res.message);
                 }
             } catch (error) {
                 console.error(error);
@@ -94,7 +100,7 @@ function CheckIn() {
 
                 <div className='fixed inset-0 flex justify-end mt-24 sm:mt-44 z-10 px-4 sm:px-0' >
                     <div className='flex flex-col space-y-4'>
-                        {userData && userData.checkInDays === 7 && (
+        
                             <Button
                                 type="primary"
                                 className="bg-[#EAF4FF] text-[#000] flex items-center justify-center space-x-2 p-1 sm:p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
@@ -103,9 +109,9 @@ function CheckIn() {
                                 <i className="fa-regular fa-gem fa-lg"></i>
                                 {/* <span className='text-sm sm:text-lg'>VOUCHERFORMONTH</span> */}
                             </Button>
-                        )}
+                  
 
-                        {userData && userData.checkInDays === 14 && (
+        
                             <Button
                                 type="primary"
                                 className="bg-[#EAF4FF] text-[#000] flex items-center justify-center space-x-2 p-1 sm:p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
@@ -114,9 +120,9 @@ function CheckIn() {
                                 <img src={Trophy} alt="trophy" className='w-6 h-6'/>
                                 {/* <span className='text-sm sm:text-lg'>VOUCHER FOR 6 MONTH</span> */}
                             </Button>
-                        )}
+                  
 
-                        {userData && userData.checkInDays === 30 && (
+                       
                             <Button
                                 type="primary"
                                 className="bg-[#EAF4FF] text-[#000] flex items-center justify-center space-x-2 p-1 sm:p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
@@ -125,7 +131,7 @@ function CheckIn() {
                                 <img src={Carbs} alt="carbs" className='w-6 h-6'/>
                                 {/* <span className='text-sm sm:text-lg'>VOUCHER FOR YEAR</span> */}
                             </Button>
-                        )}
+                   
                     </div>
                 </div>
 
