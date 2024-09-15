@@ -67,12 +67,12 @@ function Tests() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
+      <div className="flex-grow mt-20">
       {loading ? (
         <div className="flex justify-center mt-20 sm:mt-12 lg:mt-16">
           <Spin />
         </div>
       ) : (
-         <div className="flex-grow mt-20">
         <div className="flex flex-col">
           <div className="text-center text-4xl font-bold sm:text-5xl p-8">
             Test
@@ -88,8 +88,8 @@ function Tests() {
             </div>
           ))}
         </div>
-      </div>
       )}
+      </div>
      
       <Footer />
 

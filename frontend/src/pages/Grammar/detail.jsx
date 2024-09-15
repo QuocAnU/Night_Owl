@@ -75,7 +75,7 @@ function GrammarTheoryDetail() {
                     <Spin />
                 </div>
             ) : (
-                <div className='flex-grow px-4 mt-20 container'>
+                <div className='flex-grow px-4 sm:px-8 lg:px-16 mt-20 container'>
                     <button
                         onClick={() => navigate(`/skills/grammar/theory`)}
                         className="mt-8 ml-4 sm:ml-8 w-4"
