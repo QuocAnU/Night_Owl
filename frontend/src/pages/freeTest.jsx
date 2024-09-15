@@ -184,7 +184,7 @@ function FreeTest() {
   return (
     <div>
       <Header />
-      <div className='mt-16 px-4 sm:px-8 md:px-16 lg:px-32'>
+      <div className='mt-20 container mx-auto'>
         <div className="max-w-4xl mx-auto p-4">
           <div className="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-8">Test Hiragana & Katakana</div>
 

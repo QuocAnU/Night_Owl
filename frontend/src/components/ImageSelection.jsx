@@ -50,7 +50,7 @@ function ImageSelection({ dataList, detailCheck, onImageClick, selectedImage, on
                     <Button
                         type="primary"
                         onClick={onSubmit}
-                        className="w-full sm:w-48 lg:w-56 bg-[#EAF4FF] text-black"
+                        className="w-64 sm:w-48 lg:w-56 bg-[#EAF4FF] text-black"
                     >
                         Nộp bài
                     </Button>

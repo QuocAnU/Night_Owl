@@ -110,7 +110,10 @@ function ListenDetail() {
 
     if(success) {
         return (
-            <Result score={score} totalQuestions={totalQuestions} onDetailClick={handleClickDetail} sectionKey={sectionKey} />
+            <Result score={score} totalQuestions={totalQuestions} onDetailClick={handleClickDetail} sectionKey={sectionKey}
+            key={"nghe"}
+            title={"của phần luyện nghe"}
+            />
         );
     }
 
@@ -122,7 +125,7 @@ function ListenDetail() {
                     <Spin />
                 </div>
             ) : (
-                <div className='container mx-auto mt-4 sm:mt-12 lg:mt-16'>
+                <div className='container mx-auto mt-20 sm:mt-12 lg:mt-16'>
                     <button
                         onClick={() => navigate('/skills/listen')}
                         className="mt-10 w-4"
@@ -208,7 +211,7 @@ function ListenDetail() {
                               <div className='flex justify-center'>
                                 <Button 
                                     htmlType="submit"
-                                    className="w-full sm:w-48 lg:w-56 bg-[#6BDCFF4F] text-[#000] border border-[#0666F6C2] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
+                                    className="w-64 sm:w-48 lg:w-56 bg-[#6BDCFF4F] text-[#000] border border-[#0666F6C2] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
                                 >
                                     <span>Hoàn thành</span>
                                     <i className="fa-solid fa-arrow-right"></i>
@@ -223,7 +226,7 @@ function ListenDetail() {
                 <div className='flex justify-center m-8'>
                               <Button
                                 onClick={() => navigate(`/skills/listen`)}
-                                className="w-full sm:w-48 lg:w-56 bg-[#6BDCFF4F] text-[#000] border border-[#0666F6C2] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
+                                className="w-64 sm:w-48 lg:w-56 bg-[#6BDCFF4F] text-[#000] border border-[#0666F6C2] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
                               >
                                 <span>Luyện nghe</span>
                                 <i className="fa-solid fa-arrow-right"></i>

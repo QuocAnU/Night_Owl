@@ -108,7 +108,7 @@ function ExeGrammarDetail() {
 
     if(success) {
         return (
-            <Result score={score} totalQuestions={totalQuestions} onDetailClick={handleClickDetail} sectionKey={sectionKey} />
+            <Result score={score} totalQuestions={totalQuestions} onDetailClick={handleClickDetail} sectionKey={sectionKey} title={"của phần ngữ pháp"} keys={"tập"} />
         );
     }
 
@@ -138,10 +138,10 @@ function ExeGrammarDetail() {
             {detailCheck && (   
                 <div className='flex justify-center m-8'>
                               <Button
-                                onClick={() => navigate(`/tests/grammar`)}
-                                className="w-full sm:w-48 lg:w-56 bg-[#6BDCFF4F] text-[#000] border border-[#0666F6C2] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
+                                onClick={() => navigate(`/skills/grammar/practice`)}
+                                className="w-64 sm:w-48 lg:w-56 bg-[#6BDCFF4F] text-[#000] border border-[#0666F6C2] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
                               >
-                            <span>Quay lại test</span>
+                            <span>Quay lại bài tập</span>
                                 <i className="fa-solid fa-arrow-right"></i>
                               </Button>
                             </div>

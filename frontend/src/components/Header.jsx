@@ -52,7 +52,7 @@ function Header() {
             '/tests/vocal/:section',
             '/tests/grammar', '/tests/grammar/:section',
         ] },
-        { name: 'Calendar', path: '/calendar', icon: <i className="fa-regular fa-calendar-days"></i> },
+        { name: 'Mark', path: '/mark', icon: <i className="fa-regular fa-calendar-days"></i> },
     ];
 
     const isActive = (item) => {
@@ -63,6 +63,16 @@ function Header() {
             });
         }
         return location.pathname === item.path;
+    };
+
+    const handleNavigation = (path) => {
+        if (path === '/' || path === '/freeLessons') {
+            navigate(path);
+        } else if (!isSignedIn) {
+            navigate('/login', { state: { redirectTo: path } });
+        } else {
+            navigate(path);
+        }
     };
 
 
@@ -87,9 +97,13 @@ function Header() {
                                 key={index}
                                 className={`font-medium hover:scale-105 transition-all cursor-pointer ${isActive(item) ? 'text-primary' : 'hover:text-primary'}`}
                             >
-                                <Link to={item.path || item.paths[0]} className={isActive(item) ? 'text-blue-500' : ''}>
+                                <span 
+                                    onClick={() => handleNavigation(item.path || item.paths[0])} 
+                                    className={isActive(item) ? 'text-blue-500' : ''}
+                                    style={{ cursor: 'pointer' }}
+                                >
                                     {item.icon ? item.icon : item.name}
-                                </Link>
+                                </span>
                             </li>
                         ))}
                     </ul>

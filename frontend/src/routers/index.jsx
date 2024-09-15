@@ -24,6 +24,7 @@ import ProfilePage from '@/pages/profile';
 import ExeGrammarView from '@/pages/Grammar/Exe/Grammar/view';
 import ExeGrammarDetail from '@/pages/Grammar/Exe/Grammar/detail';
 import Tests from '@/pages/test';
+import CheckIn from '@/pages/mark';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -124,7 +125,12 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: <ProfilePage />,
+  },
+  {
+    path: '/mark',
+    element: <CheckIn />,
   }
+
 ]);
 
 export default router;

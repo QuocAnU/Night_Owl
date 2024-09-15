@@ -108,7 +108,9 @@ function TestGrammarDetail() {
 
     if(success) {
         return (
-            <Result score={score} totalQuestions={totalQuestions} onDetailClick={handleClickDetail} sectionKey={sectionKey} />
+            <Result score={score} totalQuestions={totalQuestions} onDetailClick={handleClickDetail} sectionKey={sectionKey}
+            keys={"kiểm tra"}
+            title={"của phần kiểm tra ngữ pháp"} />
         );
     }
 
@@ -120,7 +122,7 @@ function TestGrammarDetail() {
                     <Spin />
                 </div>
             ) : (
-                <div className='container mx-auto mt-8 sm:mt-12 lg:mt-16'>
+                <div className='container mx-auto mt-20 sm:mt-12 lg:mt-16'>
                     <button
                         onClick={() => navigate('/tests/grammar')}
                         className="mt-10 w-4"

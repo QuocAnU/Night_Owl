@@ -45,7 +45,7 @@ function TestVocalView() {
             {loading ? (
                 <Spin />
             ) : (
-                <div className="flex flex-col px-52">
+                <div className="flex flex-col container">
                     <button
                         onClick={() => navigate('/tests')}
                         className="mt-5 w-4"

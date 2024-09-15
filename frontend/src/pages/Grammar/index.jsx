@@ -18,8 +18,8 @@ function GrammarLayout() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="flex-grow mt-20">
-        <div className="flex flex-col px-52">
+      <div className="flex-grow  mt-20">
+        <div className="flex flex-col container">
           <button
             onClick={() => navigate('/skills')}
             className="mt-5 w-4"

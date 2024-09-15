@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SubscriptionModal from "@/components/PaymentComponent";
@@ -51,20 +51,20 @@ function Premium() {
   return (
     <div>
       <Header />
-      <div className='mt-20'>
-        <div className='flex flex-col px-20'>
-          <div className="text-center text-4xl font-bold sm:text-5xl p-8">
+      <div className='mt-20 container px-4 mx-auto'>
+        <div className='flex flex-col'>
+          <div className="text-center text-3xl font-bold sm:text-5xl p-8">
             Premium
           </div>
           <div className='flex flex-col justify-center items-center bg-[#EAF4FF] rounded-lg pt-8 pb-16 px-4 mb-4'>
-            <div className="text-center text-xl2 font-normal sm:text-3xl pb-8">
+            <div className="text-center text-xl font-normal sm:text-3xl pb-8">
               Các tính năng dành riêng cho gói <span className="font-bold">Premium:</span>
             </div>
-            <div className='flex flex-col justify-center border-[1px] border-[#000] rounded-lg p-6'>
+            <div className='flex flex-col justify-center border-[1px] border-[#000] rounded-lg p-6 w-full md:w-3/4'>
               {premiumFeatures.map((feature, index) => (
-                <div key={index} className='flex flex-row items-center pb-5'>
-                  <i className="fa-solid fa-circle fa-2xs"></i>
-                  <div key={index} className="ml-6 text-left text-xl font-normal sm:text-2xl">
+                <div key={index} className='flex flex-row items-start pb-5'>
+                  <i className="fa-solid fa-circle fa-2xs mt-1"></i>
+                  <div key={index} className="ml-6 text-left text-base font-normal sm:text-2xl">
                     {feature}
                   </div>
                 </div>
@@ -72,11 +72,11 @@ function Premium() {
             </div>
           </div>
 
-          <div className='flex flex-row justify-center items-start space-x-32 px-8 pt-8 pb-20'>
+          <div className='flex flex-col md:flex-row justify-center items-center md:space-x-32 px-8 pt-8 pb-20 space-y-6 md:space-y-0'>
             {subscriptionPlans.map((plan, index) => (
               <div
                 key={index}
-                className="flex flex-col justify-between items-center rounded-xl pb-6 w-1/3 bg-[#EAF4FF] shadow-md cursor-pointer"
+                className="flex flex-col justify-between items-center rounded-xl pb-6 w-full md:w-1/3 bg-[#EAF4FF] shadow-md cursor-pointer"
                 onClick={() => showModal(plan)}
               >
                 <div className="text-center text-xl font-bold bg-[#B5DBFF] sm:text-2xl py-4 w-full">

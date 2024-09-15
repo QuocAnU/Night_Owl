@@ -37,27 +37,46 @@ function Home() {
 
   useEffect(() => {
     const handleLoginSuccess = async () => {
-    try {
-      const token = getToken();
-      if (token && user) {
-        const userInfo = {
-                clerkUserId: user.id,
-                email: user.primaryEmailAddress?.emailAddress,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                imageUrl: user.imageUrl,
-            };
-        await UserApi.create(userInfo, token);
+      try {
+        const token = getToken();
+        if (token && user) {
+          const userInfo = {
+                  clerkUserId: user.id,
+                  email: user.primaryEmailAddress?.emailAddress,
+                  firstName: user.firstName,
+                  lastName: user.lastName,
+                  imageUrl: user.imageUrl,
+              };
+          await UserApi.create(userInfo, token);
+        }
+      } catch (error) {
+        console.error('Error creating user:', error);
+        throw error;
       }
-    } catch (error) {
-      console.error('Error creating user:', error);
-      throw error;
-    }
-  };
+    };
 
-  handleLoginSuccess();
-}, [getToken, user]);
+    handleLoginSuccess();
+  }, [getToken, user]);
 
+  useEffect(() => {
+    if (user) {
+      const markAttendance = async () => {
+        try {
+          const token = getToken();
+          const params = {
+            clerkUserId: user?.id,
+          }
+          if (token) {
+            await UserApi.userMark(token, params);
+          }
+        } catch (error) {
+          console.error('Error marking attendance:', error);
+          throw error;
+        }
+      };
+      markAttendance();
+      }
+  }, [user, getToken]);
   const imageStyles = "flex justify-center my-10";
   const textClasses = "text-left text-xl font-normal sm:text-2xl pb-4";
   const textClasses_1 = "text-left text-xl font-normal sm:text-2xl pb-6";
@@ -65,7 +84,7 @@ function Home() {
   return (
     <div>
       <Header />
-      <div className='mt-20 px-4 sm:px-40'>
+      <div className='mt-20 container'>
         <div className='text-center text-3xl font-bold sm:text-5xl p-8'>
           Học tiếng Nhật cùng Night Owl
         </div>

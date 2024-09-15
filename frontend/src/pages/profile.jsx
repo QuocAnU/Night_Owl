@@ -124,7 +124,7 @@ const ProfilePage = () => {
             </Col>
 
             {/* Username */}
-            <Col span={24}>
+            {/* <Col span={24}>
               <div className="flex justify-between">
                 <span className={stylesTitle}>Username</span>
                 {isEditing.username ? (
@@ -139,16 +139,16 @@ const ProfilePage = () => {
                   </span>
                 )}
               </div>
-            </Col>
+            </Col> */}
 
             {/* Account Status */}
             <Col span={24}>
               <div className="flex justify-between">
                 <span className={stylesTitle} >Thông tin tài khoản</span>
-                <span className="border rounded-lg font-bold py-1 px-2">
+                <span className=" font-bold py-1 px-2">
                   {profile.premium ? (
-                    <Button type="primary" shape="round" icon="⭐">
-                      Premium
+                    <Button type="default" shape="round" icon="⭐">
+                      <span className="text-sm font-bold">Premium</span>
                     </Button>
                   ) : (
                     'Free'

@@ -13,7 +13,7 @@ function Skills() {
   const navigate = useNavigate();
   const location = useLocation();
   const { sectionKey } = location.state || {};
-  const { isSignedIn, getToken } = useAuth();
+  const { getToken } = useAuth();
   const [listValues, setListValues] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -25,11 +25,6 @@ function Skills() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!isSignedIn) {
-        navigate('/login', { state: { redirectTo: "/skills/vocal" } }); // Redirect to login if not signed in
-        return;
-      }
-
       try {
         setLoading(true);
         const token = await getToken();
@@ -52,37 +47,38 @@ function Skills() {
         }
       } catch (error) {
         console.error(error);
+        alert("Có lỗi xảy ra khi tải dữ liệu. Vui lòng thử lại sau.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [getToken, sectionKey, isSignedIn, navigate]);
+  }, [getToken, sectionKey]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <div className="flex-grow mt-20">
         {loading ? (
-          <Spin />
+          <Spin className="flex items-center justify-center" />
         ) : (
-          <div className="flex flex-col px-52">
+          <div className="flex flex-col px-4 md:px-52">
             <button
               onClick={() => navigate('/skills/vocal')}
-              className="mt-5 w-4"
+              className="mt-5 w-10 h-10 text-2xl"
             >
-              <i className="fa-solid fa-arrow-left fa-xl"></i>
+              <i className="fa-solid fa-arrow-left"></i>
             </button>
             <div className="text-center text-4xl font-bold sm:text-5xl p-8">
               Chọn bài học
             </div>
-            <div className="flex flex-col items-center justify-center mt-5">
+            <div className="flex flex-col items-center justify-center mt-5 space-y-4">
               {listValues.map((value, index) => (
                 <Button
                   key={index}
                   onClick={() => handleNavigate(value)}
-                  className="w-60 bg-[#EAF4FF] text-[#000] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
+                  className="w-60 bg-[#EAF4FF] text-[#000] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300 mb-5"
                 >
                   {`Bài ${value}`}
                 </Button>

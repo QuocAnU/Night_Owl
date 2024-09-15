@@ -9,7 +9,7 @@ import ReadApi from "@/api/Question";
 
 function ListenView() {
   const navigate = useNavigate();
-  const { isSignedIn, getToken } = useAuth(); // Check if the user is signed in
+  const {  getToken } = useAuth(); // Check if the user is signed in
   const [loading, setLoading] = useState(false);
   const [listValues, setListValues] = useState([]);
 
@@ -19,11 +19,6 @@ function ListenView() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!isSignedIn) {
-        navigate('/login', { state: { redirectTo: "/skills" } }); // Redirect to login if the user is not signed in
-        return;
-      }
-
       try {
         setLoading(true);
         const token = await getToken();
@@ -41,16 +36,16 @@ function ListenView() {
     };
 
     fetchData();
-  }, [getToken, isSignedIn, navigate]);
+  }, [getToken]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <div className="flex-grow justify-center mt-20">
         {loading ? (
-          <Spin />
+          <Spin className="mt-5 justify-center" />
         ) : (
-          <div className="flex flex-col px-52">
+          <div className="flex flex-col container">
             <button onClick={() => navigate('/skills')} className="mt-5 w-4">
               <i className="fa-solid fa-arrow-left fa-xl"></i>
             </button>

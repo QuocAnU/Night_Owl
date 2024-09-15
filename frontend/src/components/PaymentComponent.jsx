@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { Modal, Button, Form, Input, Select } from "antd";
+import { Modal, Button, Form, Input } from "antd";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import PaymentApi from "@/api/Payment";
-const { Option } = Select;
 
 const SubscriptionModal = ({ visible, onClose, plan }) => {
     const [showDiscount, setShowDiscount] = useState(false);
@@ -34,7 +33,7 @@ const SubscriptionModal = ({ visible, onClose, plan }) => {
     const handleContinue = async () => {
         try {
             const data = {
-                amount : showDiscount ? (plan.priceN - (plan.priceN * listDiscount.discount / 100))/10 : plan.priceN/10,
+                amount : showDiscount ? (plan.priceN - (plan.priceN * listDiscount.discount / 100)) : plan.priceN,
                 orderCode: Math.floor(Math.random() * 10000000),
                 clerkUserId: user?.id,
             }

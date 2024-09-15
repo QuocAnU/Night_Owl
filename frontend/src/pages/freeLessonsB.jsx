@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavigate} from 'react-router-dom';
 import { useUser } from '@clerk/clerk-react';
-import { Modal } from 'antd';
 
 import hira from '@/assets/Image/Figma/FL2/hira.jpg';
 import hira1 from '@/assets/Image/Figma/FL2/hiragana_anh.jpg';
@@ -44,7 +43,11 @@ const katakanaSections = [
 function FreeLessonsB() {
   const navigate = useNavigate();
   const {  isSignedIn } = useUser();
-  const [showConfirmLogin, setShowConfirmLogin] = useState(false);
+  const [showPopup, setShowPopup] = useState(false); 
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -64,12 +67,12 @@ function FreeLessonsB() {
     if (isSignedIn) {
       navigate('/freeTest');
     } else {
-      setShowConfirmLogin(true);
+      setShowPopup(true);
     }
   };
 
   const handleConfirmLogin = (confirm) => {
-    setShowConfirmLogin(false);
+    setShowPopup(false);
     if (confirm) {
       navigate('/login', { state: { redirectTo: "/freeTest" } });
     }
@@ -78,8 +81,8 @@ function FreeLessonsB() {
   return (
     <div>
       <Header />
-      <div className='mt-20 sm:mt-12 lg:mt-20'>
-        <div className='flex flex-col px-4 sm:px-8 lg:px-16'>
+      <div className='mt-20 container'>
+        <div className='flex flex-col'>
           <div className="text-center text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl p-4 sm:p-6 lg:p-8">
             Bảng chữ cái tiếng Nhật
           </div>
@@ -123,17 +126,18 @@ function FreeLessonsB() {
           </div>
         </div>
       </div>
-      <Modal
-        title="Đăng nhập"
-        visible={showConfirmLogin}
-        onOk={() => handleConfirmLogin(true)}
-        onCancel={() => handleConfirmLogin(false)}
-        okText="Đăng nhập"
-        cancelText="Hủy"
-      >
-        <p>Bạn chưa đăng nhập. Bạn có muốn đăng nhập để làm bài test không?</p>
-      </Modal>
       <Footer />
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <p className="mb-4">Bạn cần đăng nhập để làm bài test nhé.</p>
+            <div className="flex justify-end space-x-4">
+              <Button onClick={closePopup} className="bg-gray-300 text-black p-2 rounded-lg">Đóng</Button>
+              <Button onClick={() => handleConfirmLogin(true)} className="bg-black text-white p-2 rounded-lg">Đăng nhập</Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
