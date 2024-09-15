@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     attendance: [
         {
             date: { type: Date },
-            status: { type: string, enum: ['present', 'absent'], default: 'absent'}
+            status: { type: String, enum: ['present', 'absent'], default: 'absent'}
         }
     ],
 }, { timestamps: true });

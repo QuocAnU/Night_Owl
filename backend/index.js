@@ -47,7 +47,6 @@ app.use(upload.any());
 app.post('/api/create-payment-link', async (req, res) => {
   try {
     const { amount, orderCode, clerkUserId } = req.body;
-    console.log(amount, orderCode, clerkUserId);
 
     const user = await User.findOneAndUpdate(
         { clerkUserId },           
@@ -72,26 +71,25 @@ app.post('/api/create-payment-link', async (req, res) => {
     const paymentLink = await payos.createPaymentLink(order);
     res.json({ checkoutUrl: paymentLink.checkoutUrl });
     } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(400).json({ success: false, message: error.message });
   }
 })
 
 app.post('/receive-hook', async (req, res) => {
-  console.log("Data: ",req.body);
   const {data} = req.body;
   if( data.code === '00') {
     let plan = 'basic';
     let remainingDays = 0;
-    if(data.amount === 5000 || data.amount === 4500) {
+    if(data.amount === 50000 || data.amount === 45000) {
       plan = 'basic';
       remainingDays = 30;
     }
-    else if(data.amount === 28000 || data.amount === 9500) {
+    else if(data.amount === 280000 || data.amount === 252000) {
       plan = 'standard';
       remainingDays = 180;
     }
-    else if(data.amount === 55000) {
+    else if(data.amount === 550000 || data.amount === 495000) {
       plan = 'premium';
       remainingDays = 365;
     }

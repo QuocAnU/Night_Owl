@@ -21,6 +21,10 @@ const userDiscountSchema = new mongoose.Schema({
     required: true,
     enum: [1, 2, 3],
     default: 1
+  },
+  use: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true });
 

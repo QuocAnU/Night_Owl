@@ -3,7 +3,6 @@ const { PassThrough } = require('stream');
 const Media = require('../models/Media');
 
 const upload = async (req, res) => {
-    console.log(req.files);
     try {
         if (!req.files || req.files.length === 0) {
             return res.status(400).json({ error: 'No file uploaded' });

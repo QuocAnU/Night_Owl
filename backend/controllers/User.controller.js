@@ -40,7 +40,6 @@ const getUser = async (req, res) => {
 
 const getUserDiscount = async (req, res) => {
     try {
-        console.log(req.query);
         const { clerkUserId, type } = req.query;
         const userDiscount = await UserDiscount.findOne({ clerkUserId, type });
         if (!userDiscount) {
@@ -60,11 +59,11 @@ const isToday = (date) => {
 
 const autoMark = async (req, res) => {
     try {
-        const { userId } = req.auth.userId;
+        const { clerkUserId } = req.query;
         const today = new Date();
         const formattedDate = today.toISOString().split('T')[0];
 
-        const user = await User.findOne({ clerkUserId: userId });
+        const user = await User.findOne({ clerkUserId: clerkUserId });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -81,6 +80,12 @@ const autoMark = async (req, res) => {
                 user.checkInDays = 0;
                 await user.save();
 
+                const userDiscount = await UserDiscount.find({ clerkUserId: clerkUserId});
+
+                if (userDiscount.length > 0) {
+                   await userDiscount.deleteMany({ clerkUserId: clerkUserId });
+                }
+
                 return res.status(200).json({ message: 'Chúc mừng bạn đã hoàn thành 30 ngày điểm danh!' });
             } else {
                 await user.save();
@@ -95,6 +100,30 @@ const autoMark = async (req, res) => {
 };
 
 
+const createUseDiscount = async (req, res) => {
+    try {
+        const { clerkUserId, type, discount, name } = req.body;
+        const existingDiscount = await UserDiscount.findOne({ clerkUserId, type });
+        if (existingDiscount) {
+            return res.status(201).json({ error_code: 1, message: 'Bạn đã nhận voucher trước đó!' });
+        }
+        const userDiscount = new UserDiscount({
+            clerkUserId,
+            type,
+            discount,
+            name
+        });
+        await userDiscount.save();
+        res.status(201).json({ error_code: 0 , message: 'User discount created successfully' });
+    } catch (error) {
+        console.error('Error creating user discount:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+
+
+
 module.exports = {
-    createUser, getUser, getUserDiscount, autoMark
+    createUser, getUser, getUserDiscount, autoMark, createUseDiscount
 }

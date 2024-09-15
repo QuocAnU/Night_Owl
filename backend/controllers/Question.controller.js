@@ -59,10 +59,6 @@ const submitAnswer = async (req, res) => {
 
             const normalizedUserAnswer = userAnswer.trim().normalize();
             const normalizedAnswer = answer.trim().normalize();
-
-            console.log(normalizedUserAnswer, normalizedAnswer);
-            console.log(normalizedUserAnswer === normalizedAnswer);
-
             const updatedQuestions = questions.map((q) => {
                 const normalized = q.text.trim().normalize();
                 if (normalized === normalizedUserAnswer) {
@@ -111,9 +107,6 @@ const submitAnswerImage = async (req, res) => {
         res.status(404).json({ success: false, message: 'Question not found' });
     }
     const {answer} = question;
-        console.log(answer);
-        console.log(image);
-        console.log(answer === image);
         if (answer === image) {
             score += 1
         }
