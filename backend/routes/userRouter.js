@@ -11,4 +11,6 @@ router.post('/users/discount', verifyToken, userController.createUseDiscount);
 
 router.get('/users/mark', verifyToken, userController.autoMark);
 
+router.get('/users/free-premium', verifyToken, userController.getFreePremium);
+
 module.exports = router;

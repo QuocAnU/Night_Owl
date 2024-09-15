@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     premium: { type: Boolean, default: false },
     plan: { 
         type: String, 
-        enum: ['basic', 'standard', 'premium'], 
+        enum: ['free', 'basic', 'standard', 'premium'], 
         default: null 
     },
     remainingDays: { 
@@ -32,6 +32,7 @@ const userSchema = new mongoose.Schema({
             status: { type: String, enum: ['present', 'absent'], default: 'absent'}
         }
     ],
+    freePremium: { type: Boolean, default: false },
 }, { timestamps: true });
 
 // Create the User model

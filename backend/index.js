@@ -24,6 +24,7 @@ const { sendEmail} = require('./emailService');
 
 const PayOS = require('@payos/node');
 const User = require('./models/User');
+const UserDiscount = require('./models/UserDiscount');
 
 
 
@@ -46,7 +47,7 @@ app.use(upload.any());
 
 app.post('/api/create-payment-link', async (req, res) => {
   try {
-    const { amount, orderCode, clerkUserId } = req.body;
+    const { amount, orderCode, clerkUserId, type  } = req.body;
 
     const user = await User.findOneAndUpdate(
         { clerkUserId },           
@@ -57,6 +58,11 @@ app.post('/api/create-payment-link', async (req, res) => {
     if (!user) {
         return res.status(404).json({ message: "User not found" });
     }
+
+    if(type) {
+      await UserDiscount.findOneAndDelete({ clerkUserId, type });
+    }
+
 
     const order = {
       amount,

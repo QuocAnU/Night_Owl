@@ -80,12 +80,6 @@ const autoMark = async (req, res) => {
                 user.checkInDays = 0;
                 await user.save();
 
-                const userDiscount = await UserDiscount.find({ clerkUserId: clerkUserId});
-
-                if (userDiscount.length > 0) {
-                   await userDiscount.deleteMany({ clerkUserId: clerkUserId });
-                }
-
                 return res.status(200).json({ message: 'Chúc mừng bạn đã hoàn thành 30 ngày điểm danh!' });
             } else {
                 await user.save();
@@ -104,6 +98,22 @@ const createUseDiscount = async (req, res) => {
     try {
         const { clerkUserId, type, discount, name } = req.body;
         const existingDiscount = await UserDiscount.findOne({ clerkUserId, type });
+        const user = await User.findOne({ clerkUserId });
+        if(user) {
+            if(type === 1) {
+                if(user.checkInDays < 7) {
+                    return res.status(201).json({ error_code: 11, message: 'Phải điểm danh đủ 7 ngày mới được nhận!'});
+                }
+            } else if(type === 2) {
+                if(user.checkInDays < 14) {
+                    return res.status(201).json({ error_code: 12, message: 'Phải điểm danh đủ 14 ngày mới được nhận!'});
+                }
+            } else if(type === 3) {
+                if(user.checkInDays < 30) {
+                    return res.status(201).json({ error_code: 13, message: 'Phải điểm danh đủ 30 ngày mới được nhận!'});
+                }
+            }
+        }
         if (existingDiscount) {
             return res.status(201).json({ error_code: 1, message: 'Bạn đã nhận voucher trước đó!' });
         }
@@ -121,9 +131,33 @@ const createUseDiscount = async (req, res) => {
     }
 };
 
+const getFreePremium = async (req, res) => {
+    try {
+        const { clerkUserId } = req.query;
+        const user = await User.findOne({ clerkUserId });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (user.freePremium) {
+            return res.status(200).json({ error_code: 1, message: 'Bạn đã dùng thử trước đó!' });
+        }
+
+        user.premium = true;
+        user.plan = 'free';
+        user.remainingDays = 7;
+        user.freePremium = true;
+        await user.save();
+
+        res.status(200).json({ error_code: 0, message: 'User updated successfully' });
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
 
 
 
 module.exports = {
-    createUser, getUser, getUserDiscount, autoMark, createUseDiscount
+    createUser, getUser, getUserDiscount, autoMark, createUseDiscount, getFreePremium
 }
