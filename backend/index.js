@@ -21,6 +21,7 @@ const TestGrammarRoute = require('./routes/testGrammarRouter');
 const TestVocalRoute = require('./routes/testVocalRouter');
 const ExeGrammarRoute = require('./routes/exeGrammarRouter');
 const { sendEmail} = require('./emailService');
+const { startCronJob } = require('./dayOff');
 
 const PayOS = require('@payos/node');
 const User = require('./models/User');
@@ -99,18 +100,21 @@ app.post('/receive-hook', async (req, res) => {
       plan = 'premium';
       remainingDays = 365;
     }
+    const userEmail = user.email;
+    const customerName = user.firstName + ' ' + user.lastName;
+    await sendEmail(userEmail, customerName);
+    
     const user = await User.findOneAndUpdate(
       { orderCode: data.orderCode },           
       { premium: true, plan: plan, remainingDays: remainingDays },              
       { new: true, upsert: false }
     );
 
-    const userEmail = user.email;
-    const customerName = user.firstName + ' ' + user.lastName;
-    await sendEmail(userEmail, customerName);
   }
   res.json();
 });
+
+startCronJob();
 
 cron.schedule('0 0 * * *', async () => {
   const users = await User.find({ premium: true });

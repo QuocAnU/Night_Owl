@@ -100,7 +100,7 @@ const sendEmail = async (to, customerName) => {
             🎁<span>Cảm ơn bạn đã chọn đồng hành cùng Night Owl</span>🎁
           </p>
           <div class="content">
-            <p>Xin chào &lt;tên khách hàng&gt;,</p>
+            <p>Xin chào ${customerName},</p>
             <p>Chào mừng bạn đã trở thành <b class="b">Night Owleaner Premium</b>. Chúng tôi rất vui mừng được đồng hành cùng bạn trên hành trình khám phá những lợi ích và trải nghiệm tuyệt vời mà đặc quyền này mang đến.</p>
             
             <p>Với <b class="b">Night Owleaner Premium</b>, bạn sẽ nhận được các đặc quyền đặc biệt như:</p>

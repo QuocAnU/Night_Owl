@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
         }
     ],
     freePremium: { type: Boolean, default: false },
+
+    lastLogin: { type: Date, default: null },
+
+    dayOffs: { type: Number, default: 0 }
 }, { timestamps: true });
 
 // Create the User model
