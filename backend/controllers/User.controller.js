@@ -72,6 +72,7 @@ const autoMark = async (req, res) => {
 
         if (!existingAttendance) {
             user.attendance.push({ date: today, status: 'present' });
+            user.lastLogin = today;
             user.checkInDays += 1;
             user.totalCheckInDays += 1;
 
