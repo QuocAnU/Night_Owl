@@ -100,15 +100,21 @@ app.post('/receive-hook', async (req, res) => {
       plan = 'premium';
       remainingDays = 365;
     }
-    const userEmail = user.email;
-    const customerName = user.firstName + ' ' + user.lastName;
-    await sendEmail(userEmail, customerName);
-    
+
     const user = await User.findOneAndUpdate(
       { orderCode: data.orderCode },           
-      { premium: true, plan: plan, remainingDays: remainingDays },              
-      { new: true, upsert: false }
-    );
+                { premium: true, plan: plan, remainingDays: remainingDays },              
+                { new: true, upsert: false }
+            );
+
+            // Check if the user was found and updated
+            if (user) {
+                const userEmail = user.email;
+                const customerName = `${user.firstName} ${user.lastName}`;
+                await sendEmail(userEmail, customerName); // Send email notification
+            } else {
+                console.error('User not found for the given order code');
+            }
 
   }
   res.json();
