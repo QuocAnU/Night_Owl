@@ -4,7 +4,9 @@ dotenv.config();
 
 // Tạo transporter với OAuth2
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: process.env.MAIL_HOST,
+  port: 587,
+  secure: false,
   auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.MAIL_PASSWORD

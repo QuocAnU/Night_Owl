@@ -5,7 +5,9 @@ dotenv.config();
 const User = require('./models/User'); // Đường dẫn đến model User
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: process.env.MAIL_HOST,
+  port: 587,
+  secure: false,
   auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.MAIL_PASSWORD
