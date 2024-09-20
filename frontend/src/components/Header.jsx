@@ -24,6 +24,7 @@ function Header() {
             </Menu.Item>
         </Menu>
     )
+
     
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -153,7 +154,7 @@ function Header() {
 
                 {/* Sign In or User Button */}
                 <div className="flex items-center gap-8">
-                    <Button onClick={() => showModal()}>Free Premium</Button>
+                    <Button onClick={() => showModal()} >Free Premium</Button>
                     {isSignedIn ? (
                         <Dropdown overlay={UserMenu} trigger={['click']}>
                             <Avatar
