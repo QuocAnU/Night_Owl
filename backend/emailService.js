@@ -1,5 +1,4 @@
 const nodemailer = require('nodemailer');
-const oAuth2Client = require('./config/oauth2Config');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -7,20 +6,14 @@ dotenv.config();
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    type: 'OAuth2',
-    user: process.env.EMAIL_USER,  // Email của bạn
-    clientId: process.env.CLIENT_EMAIL_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    refreshToken: process.env.REFRESH_TOKEN,
-  },
+        user: process.env.EMAIL_USER,
+        pass: process.env.MAIL_PASSWORD
+    }
 });
 
 // Hàm gửi email
 const sendEmail = async (to, customerName) => {
   try {
-    // Lấy access token
-    const accessToken = await oAuth2Client.getAccessToken();
-    
     // Cấu hình email
     const mailOptions = {
       from: process.env.EMAIL_USER,
@@ -130,9 +123,6 @@ const sendEmail = async (to, customerName) => {
       </body>
       </html>
     `,
-      auth: {
-        accessToken: accessToken.token, // Sử dụng access token
-      },
     };
 
     // Gửi email

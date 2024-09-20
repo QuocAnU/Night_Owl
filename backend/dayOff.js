@@ -1,6 +1,5 @@
 const cron = require('node-cron');
 const nodemailer = require('nodemailer');
-const oAuth2Client = require('./config/oauth2Config');
 const dotenv = require('dotenv');
 dotenv.config();
 const User = require('./models/User'); // Đường dẫn đến model User
@@ -8,21 +7,14 @@ const User = require('./models/User'); // Đường dẫn đến model User
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    type: 'OAuth2',
-    user: process.env.EMAIL_USER,  // Email của bạn
-    clientId: process.env.CLIENT_EMAIL_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    refreshToken: process.env.REFRESH_TOKEN,
-  },
+        user: process.env.EMAIL_USER,
+        pass: process.env.MAIL_PASSWORD
+    }
 });
 
 // Hàm gửi email
 async function sendReminderEmail(user) {
     try {
-        // Lọc access token
-        const accessToken = await oAuth2Client.getAccessToken();
-
-        // Cấu hình email
         const mailOptions = {
       from: process.env.EMAIL_USER,
       to: to,
@@ -139,10 +131,9 @@ async function sendReminderEmail(user) {
 </body>
 </html>
     `,
-      auth: {
-        accessToken: accessToken.token, 
-      },
     };
+
+    await transporter.sendMail(mailOptions);
 
     } catch (error) {
         console.error('Error sending email:', error);
