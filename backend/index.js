@@ -69,10 +69,10 @@ app.post('/api/create-payment-link', async (req, res) => {
       amount,
       orderCode,
       description: `Payment for order ${orderCode}`,
-      returnUrl: "http://localhost:5173/profile",
-      // returnUrl: "https://night-owl-xn17.vercel.app/profile",
-      cancelUrl: "http://localhost:5173/premium",
-      // cancelUrl: "https://night-owl-xn17.vercel.app/premium",
+      // returnUrl: "http://localhost:5173/profile",
+      returnUrl: "https://night-owl-xn17.vercel.app/profile",
+      // cancelUrl: "http://localhost:5173/premium",
+      cancelUrl: "https://night-owl-xn17.vercel.app/premium",
     };
 
     const paymentLink = await payos.createPaymentLink(order);
