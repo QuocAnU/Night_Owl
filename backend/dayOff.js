@@ -177,6 +177,8 @@ function startCronJob() {
     cron.schedule('0 0 * * *', () => {
         console.log('Chạy kiểm tra lastLogin và cập nhật dayOffs vào 0 giờ');
         checkAndUpdateDayOffs();
+    }, {
+        timezone: 'Asia/Ho_Chi_Minh',
     });
 }
 

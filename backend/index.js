@@ -123,21 +123,29 @@ app.post('/receive-hook', async (req, res) => {
 startCronJob();
 
 cron.schedule('0 0 * * *', async () => {
-  const users = await User.find({ premium: true });
+  try {
+    const users = await User.find({ premium: true });
 
-  for (const user of users) {
-    if (user.remainingDays > 0) {
-      user.remainingDays -=1;
-    }
+    for (const user of users) {
+      if (user.remainingDays > 0) {
+        user.remainingDays -=1;
+      }
 
-    if(user.remainingDays === 0) {
-      user.premium = false;
-      user.plan = null;
-      user.remainingDays = null;
+      if (user.remainingDays === 0) {
+        user.premium = false;
+        user.plan = null;
+        user.remainingDays = null;
+      }
+
+      await user.save();
     }
-    await user.save();
+  } catch (error) {
+    console.error("Error in cron job:", error);
   }
+}, {
+  timezone: 'Asia/Ho_Chi_Minh',
 });
+
 
 app.use('/api', UserRoute);
 app.use('/api', MediaRoute);
