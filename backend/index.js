@@ -120,7 +120,6 @@ app.post('/receive-hook', async (req, res) => {
   res.json();
 });
 
-startCronJob();
 
 cron.schedule('0 0 * * *', async () => {
   try {
@@ -146,6 +145,8 @@ cron.schedule('0 0 * * *', async () => {
   timezone: 'Asia/Ho_Chi_Minh',
 });
 
+
+startCronJob();
 
 app.use('/api', UserRoute);
 app.use('/api', MediaRoute);
