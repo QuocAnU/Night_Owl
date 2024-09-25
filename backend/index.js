@@ -21,7 +21,7 @@ const TestGrammarRoute = require('./routes/testGrammarRouter');
 const TestVocalRoute = require('./routes/testVocalRouter');
 const ExeGrammarRoute = require('./routes/exeGrammarRouter');
 const { sendEmail} = require('./emailService');
-const { startCronJob } = require('./dayOff');
+const { checkAndUpdateDayOffs } = require('./dayOff');
 
 const PayOS = require('@payos/node');
 const User = require('./models/User');
@@ -145,10 +145,20 @@ app.post('/api/run-cron-remaining-days', async (req, res) => {
     console.error("Error in cron job:", error);
   }
 });
+
+app.post('/api/checkAndUpdateDayOffs', async (req, res) => {
+  try {
+    await checkAndUpdateDayOffs();
+    res.status(200).json({ message: 'Cron job chạy lại!' });
+  } catch (error) {
+    console.error("Error in cron job:", error);
+  }
+});
+
+
     
 
 
-startCronJob();
 
 app.use('/api', UserRoute);
 app.use('/api', MediaRoute);
