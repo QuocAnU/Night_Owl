@@ -1,0 +1,21 @@
+name: Cron Jobs
+
+on:
+  schedule:
+    - cron: '0 4 * * *' 
+    - cron: '0 0 * * *'
+
+jobs:
+  run-cron-job-1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Cron Job 1
+        run: |
+          curl -X POST https://night-owl-seven.vercel.app/api/run-cron-remaining-days
+
+  run-cron-job-2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Cron Job 2
+        run: |
+          curl -X POST https://night-owl-seven.vercel.app/api/checkAndUpdateDayOffs

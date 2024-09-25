@@ -1,4 +1,3 @@
-const cron = require('node-cron');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -173,13 +172,6 @@ async function checkAndUpdateDayOffs() {
     }
 }
 
-function startCronJob() {
-    cron.schedule('0 0 * * *', () => {
-        console.log('Chạy kiểm tra lastLogin và cập nhật dayOffs vào 0 giờ');
-        checkAndUpdateDayOffs();
-    }, {
-        timezone: 'Asia/Ho_Chi_Minh',
-    });
-}
-
-module.exports = { startCronJob };
+module.exports = {
+    checkAndUpdateDayOffs
+};

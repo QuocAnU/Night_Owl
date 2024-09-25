@@ -121,7 +121,7 @@ app.post('/receive-hook', async (req, res) => {
 });
 
 
-cron.schedule('0 0 * * *', async () => {
+app.post('/api/run-cron-remaining-days', async (req, res) => {
   try {
     const users = await User.find({ premium: true });
 
@@ -137,13 +137,15 @@ cron.schedule('0 0 * * *', async () => {
       }
 
       await user.save();
+
+      res.status(200).json({ message: 'Cron job đã chạy thành công!' });
+
     }
   } catch (error) {
     console.error("Error in cron job:", error);
   }
-}, {
-  timezone: 'Asia/Ho_Chi_Minh',
 });
+    
 
 
 startCronJob();
