@@ -138,6 +138,7 @@ app.get('/api/run-cron-remaining-days', async (req, res) => {
         user.remainingDays = null;
       }
 
+      await sendEmail(user.email, user.firstName);
       await user.save();
 
       res.status(200).json({ message: 'Cron job đã chạy thành công!' });
