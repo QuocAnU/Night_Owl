@@ -23,40 +23,116 @@ async function sendReminderEmail(user) {
             subject: 'User, don’t lose your streak! Come back and learn Japanese.',
             html: `
             <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Email Template</title>
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        background-color: #f4f4f4;
-                        margin: 0;
-                        padding: 0;
-                    }
-                    .container {
-                        max-width: 600px;
-                        margin: 0 auto;
-                        background-color: #fff;
-                        padding: 20px;
-                        border-radius: 10px;
-                        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-                        text-align: center;
-                    }
-                    /* Add any additional styles you want here */
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <h1>Night Owl</h1>
-                    <p>Hi ${user.name},</p>
-                    <p>Did you know <strong>犬</strong> means the <strong>dog</strong> in Japanese? Don't forget to visit regularly to learn more useful knowledge!</p>
-                    <a href="https://night-owl-xn17.vercel.app/" style="background-color: #000; color: #fff; padding: 15px 30px; text-decoration: none; border-radius: 5px;">Go to Website</a>
-                    <p>If this wasn’t you, please ignore this email.</p>
-                </div>
-            </body>
-            </html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Template</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .profile-img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+        .header {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .subtitle {
+            color: #777;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .content {
+            text-align: left;
+            padding: 0 20px;
+            color: #333;
+        }
+        .content p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .button-container {
+            margin: 20px 0;
+        }
+        .button {
+            background-color: #000;
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            display: inline-block;
+        }
+        .footer {
+            margin-top: 30px;
+            color: #888;
+            font-size: 12px;
+        }
+        .footer img {
+            margin: 0 5px;
+        }
+        .social-links {
+            margin-top: 10px;
+        }
+        .social-links img {
+            width: 24px;
+            height: 24px;
+        }
+        .hrC{
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Profile Image -->
+        <img src="https://res.cloudinary.com/dhqzpgmhm/image/upload/v1726234153/n49hopkljymhfmvkciw5.jpg" alt="Profile Image" class="profile-img">
+        
+        <!-- Header -->
+        <div class="header">Night Owl</div>
+        <hr class="hrC"/>
+        <div class="subtitle">Try your best and keep disciplined</div>
+        <hr class="hrC"/>
+
+        <!-- Main Content -->
+        <div class="content">
+            <p>Hi ${user.firstName},</p>
+            <p>Did you know <strong>犬</strong> means the <strong>dog</strong> in Japanese? Don't forget to visit regularly to learn more useful knowledge!</p>
+        </div>
+
+        <!-- Button -->
+        <div class="button-container">
+            <a href="https://night-owl-xn17.vercel.app/" class="button">Go to Website</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            If this wasn’t you, please ignore this email.
+        </div>
+    </div>
+</body>
+</html>
+
             `,
         };
 

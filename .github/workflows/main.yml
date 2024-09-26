@@ -2,7 +2,6 @@ name: Cron Jobs
 
 on:
   schedule:
-    - cron: "* * * * *" # Every minute
     - cron: "0 0 * * *" # Every day at midnight UTC
   workflow_dispatch: # Allows manual triggering
 
