@@ -1,6 +1,6 @@
 import { SignIn } from '@clerk/clerk-react';
 import { useLocation} from 'react-router-dom';
-import Logo from './../assets/Image/logo.jpg';
+import Logo from './../assets/Image/logo1.png';
 
 
 function LoginPage() {

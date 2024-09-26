@@ -94,7 +94,7 @@ const sendEmail = async (to, customerName) => {
                         </div>
                     </td>
                     <td style="text-align: right;">
-                        <img class="logo" src="https://res.cloudinary.com/dhqzpgmhm/image/upload/v1727338181/reeglk74oblp13ibs8ho.png" alt="Night Owl Logo">
+                        <img class="logo" src="https://res.cloudinary.com/dhqzpgmhm/image/upload/v1727353659/jie46bqngo1dlmtdytrx.png" alt="Night Owl Logo">
                     </td>
                 </tr>
             </table>
