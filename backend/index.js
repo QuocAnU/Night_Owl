@@ -146,12 +146,15 @@ app.get('/api/run-cron-remaining-days', async (req, res) => {
   }
 });
 
+
 app.get('/api/checkAndUpdateDayOffs', async (req, res) => {
-  try {
-    await checkAndUpdateDayOffs();
-  } catch (error) {
-    console.error("Error in cron job:", error);
-  }
+    try {
+        await checkAndUpdateDayOffs();
+        res.status(200).json({ message: 'Checked and updated days off successfully.' });
+    } catch (error) {
+        console.error("Error in cron job:", error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
 });
 
 
