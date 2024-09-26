@@ -149,7 +149,6 @@ app.get('/api/run-cron-remaining-days', async (req, res) => {
 app.get('/api/checkAndUpdateDayOffs', async (req, res) => {
   try {
     await checkAndUpdateDayOffs();
-    res.status(200).json({ message: 'Cron job chạy lại!' });
   } catch (error) {
     console.error("Error in cron job:", error);
   }
