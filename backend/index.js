@@ -121,7 +121,7 @@ app.post('/receive-hook', async (req, res) => {
 });
 
 
-app.post('/api/run-cron-remaining-days', async (req, res) => {
+app.get('/api/run-cron-remaining-days', async (req, res) => {
   try {
     const users = await User.find({ premium: true });
 
@@ -146,7 +146,7 @@ app.post('/api/run-cron-remaining-days', async (req, res) => {
   }
 });
 
-app.post('/api/checkAndUpdateDayOffs', async (req, res) => {
+app.get('/api/checkAndUpdateDayOffs', async (req, res) => {
   try {
     await checkAndUpdateDayOffs();
     res.status(200).json({ message: 'Cron job chạy lại!' });

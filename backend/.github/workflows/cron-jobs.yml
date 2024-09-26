@@ -11,11 +11,11 @@ jobs:
     steps:
       - name: Call Cron Job 1
         run: |
-          curl -X POST https://night-owl-seven.vercel.app/api/run-cron-remaining-days
+          curl -X GET https://night-owl-seven.vercel.app/api/run-cron-remaining-days
 
   run-cron-job-2:
     runs-on: ubuntu-latest
     steps:
       - name: Call Cron Job 2
         run: |
-          curl -X POST https://night-owl-seven.vercel.app/api/checkAndUpdateDayOffs
+          curl -X GET https://night-owl-seven.vercel.app/api/checkAndUpdateDayOffs
