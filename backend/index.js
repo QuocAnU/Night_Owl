@@ -137,8 +137,6 @@ app.get('/api/run-cron-remaining-days', async (req, res) => {
         user.plan = null;
         user.remainingDays = null;
       }
-
-      await sendEmail(user.email, user.firstName);
       await user.save();
     }
 
