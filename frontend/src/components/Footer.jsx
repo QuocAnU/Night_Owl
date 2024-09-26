@@ -1,4 +1,4 @@
-import Logo from './../assets/Image/logo.jpg';
+import Logo from './../assets/Image/lOGO-02.jpg';
 import Tiktok from './../assets/Image/tiktok.svg';
 
 function Footer() {
