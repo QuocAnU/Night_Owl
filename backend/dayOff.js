@@ -43,6 +43,7 @@ async function sendReminderEmail(user) {
             border-radius: 10px;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
             text-align: center;
+            border: 1px solid #787878;
         }
         .profile-img {
             border-radius: 50%;
@@ -75,7 +76,7 @@ async function sendReminderEmail(user) {
         }
         .button {
             background-color: #000;
-            color: #fff;
+            color: #fff !important;
             padding: 15px 30px;
             text-decoration: none;
             border-radius: 5px;
