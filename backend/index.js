@@ -125,6 +125,8 @@ app.get('/api/run-cron-remaining-days', async (req, res) => {
   try {
     const users = await User.find({ premium: true });
 
+    console.log("User: ", users);
+
     for (const user of users) {
       if (user.remainingDays > 0) {
         user.remainingDays -=1;
