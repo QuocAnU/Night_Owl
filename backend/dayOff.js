@@ -107,7 +107,7 @@ async function sendReminderEmail(user) {
 <body>
     <div class="container">
         <!-- Profile Image -->
-        <img src="https://res.cloudinary.com/dhqzpgmhm/image/upload/v1726234153/n49hopkljymhfmvkciw5.jpg" alt="Profile Image" class="profile-img">
+        <img src="https://res.cloudinary.com/dhqzpgmhm/image/upload/v1727338181/reeglk74oblp13ibs8ho.png" alt="Profile Image" class="profile-img">
         
         <!-- Header -->
         <div class="header">Night Owl</div>
