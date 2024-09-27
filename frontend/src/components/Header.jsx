@@ -154,7 +154,7 @@ function Header() {
 
                 {/* Sign In or User Button */}
                 <div className="flex items-center gap-8">
-                    <Button onClick={() => showModal()} >Free Premium</Button>
+                    <Button onClick={() => showModal()} >Get 7-days Premium</Button>
                     {isSignedIn ? (
                         <Dropdown overlay={UserMenu} trigger={['click']}>
                             <Avatar

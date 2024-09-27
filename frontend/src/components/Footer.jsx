@@ -1,5 +1,5 @@
 import Logo from './../assets/Image/logo1.png';
-import Tiktok from './../assets/Image/tiktok.svg';
+import Tiktok from './../assets/Image/tiktok.png';
 
 function Footer() {
     return (
@@ -9,13 +9,10 @@ function Footer() {
                 <div className="mx-auto max-w-screen-xl px-4 pt-8 sm:px-6 lg:px-8">
                     <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between lg:gap-8">
                         <div className="text-gray-900 flex flex-col items-center">
-                            <div className="text-2xl font-bold sm:text-3xl lg:text-4xl">
-                                Night Owl
-                            </div>
                             <img
                                 src={Logo}
                                 alt="logo"
-                                className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] lg:w-[112px] lg:h-[120px] rounded-full mt-4"
+                                className="w-28 h-28 sm:w-32 sm:h-32 lg:w-40 lg:h-40 rounded-full mt-4"
                             />
                         </div>
 
@@ -77,7 +74,7 @@ function Footer() {
                                         <img
                                             src={Tiktok} // Update this path to where you placed the SVG
                                             alt="TikTok"
-                                            className="w-6 h-6"
+                                            className="w-6 h-6 rounded-full"
                                         />
                                     </a>
                                 </li>
