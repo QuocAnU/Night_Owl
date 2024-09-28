@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import Logo from './../assets/Image/logo.jpg';
+import Logo from './../assets/Image/logo1.png';
 import Logo_1 from './../assets/Image/home.jpg';
 
 import { useEffect } from 'react';
