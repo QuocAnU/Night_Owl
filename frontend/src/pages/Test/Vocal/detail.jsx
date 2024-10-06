@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useAuth } from '@clerk/clerk-react';
+import { useAuth, useClerk } from '@clerk/clerk-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Spin, Button } from 'antd';
@@ -16,6 +16,7 @@ function TestVocalDetail() {
     const location = useLocation();
     const { sectionKey } = location.state || {};
     const { getToken } = useAuth();
+    const {user} = useClerk();
     const navigate = useNavigate();
     const [dataList, setDataList] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -63,6 +64,7 @@ function TestVocalDetail() {
             const newCommentData = {
                 content: newComment,
                 from: `test_vocal_${sectionKey}`,
+                clerkUserId: user?.id,
             };
             const res = await CommentApi.createComment(token, newCommentData);
             if (res && res.data) {

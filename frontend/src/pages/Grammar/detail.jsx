@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import GrammarTheoryApi from '@/api/Grammar/Theory';
-import { useAuth } from '@clerk/clerk-react';
+import { useAuth, useClerk } from '@clerk/clerk-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import GrammarTheoryComponent from '@/components/GrammarTheoryComponent';
@@ -14,6 +14,7 @@ function GrammarTheoryDetail() {
     const location = useLocation();
     const { sectionValue } = location.state || {};
     const { getToken } = useAuth();
+    const { user } = useClerk();
     const navigate = useNavigate();
     const [dataList, setDataList] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -30,6 +31,7 @@ function GrammarTheoryDetail() {
             const newCommentData = {
                 content: newComment,
                 from: 'grammar_theories',
+                clerkUserId: user?.id,
             };
             const res = await CommentApi.createComment(token, newCommentData);
             if (res && res.data) {
