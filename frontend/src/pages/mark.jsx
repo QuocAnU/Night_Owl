@@ -98,16 +98,14 @@ function CheckIn() {
             <Header />
             <div className="flex-grow mt-20 mb-10 items-center">
 
-                <div className='fixed inset-0 flex justify-end mt-24 sm:mt-44 z-10 px-4 sm:px-0' >
+                <div className='flex justify-end mt-4 px-4 sm:px-0' >
                     <div className='flex flex-col space-y-4'>
-        
                             <Button
                                 type="primary"
                                 className="bg-[#EAF4FF] text-[#000] flex items-center justify-center space-x-2 p-1 sm:p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
                                 onClick={() => showModal('7 Days')}
                             >
                                 <i className="fa-regular fa-gem fa-lg"></i>
-                                {/* <span className='text-sm sm:text-lg'>VOUCHERFORMONTH</span> */}
                             </Button>
                   
 
@@ -118,7 +116,6 @@ function CheckIn() {
                                 onClick={() => showModal('14 Days')}
                             >
                                 <img src={Trophy} alt="trophy" className='w-6 h-6'/>
-                                {/* <span className='text-sm sm:text-lg'>VOUCHER FOR 6 MONTH</span> */}
                             </Button>
                   
 
@@ -135,7 +132,7 @@ function CheckIn() {
                     </div>
                 </div>
 
-                <div className="text-center text-3xl md:text-5xl font-bold sm:text-5xl px-4 sm:px-8 pt-8 pb-4">
+                <div className="text-center text-3xl md:text-5xl font-bold sm:text-5xl px-4 sm:px-8 pb-4">
                     Điểm danh
                 </div>
                 <div className="text-center text-base sm:text-xl font-normal mt-4 mb-8 ">
@@ -161,14 +158,14 @@ function CheckIn() {
                     </div>
                 </div>
             </div>
-            <Footer />
-
             <VoucherModal
                 isModalVisible={isModalVisible}
                 handleOk={handleOk}
                 handleCancel={handleCancel}
                 title={title}
             />
+
+            <Footer />
         </div>
     );
 }
