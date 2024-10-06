@@ -132,7 +132,7 @@ function CheckIn() {
                     </div>
                 </div>
 
-                <div className="text-center text-3xl md:text-5xl font-bold sm:text-5xl px-4 sm:px-8 pb-4">
+                <div className="text-center text-3xl md:text-5xl font-bold sm:text-5xl px-4 sm:px-8 pb-4 -mt-16">
                     Điểm danh
                 </div>
                 <div className="text-center text-base sm:text-xl font-normal mt-4 mb-8 ">
