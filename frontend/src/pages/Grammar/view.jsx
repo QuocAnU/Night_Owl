@@ -67,7 +67,7 @@ function GrammarTheoryView() {
                 <Button
                   key={index}
                   onClick={() => handleNavigate(value)}
-                  className="w-60 bg-[#EAF4FF] text-[#000] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300"
+                  className="w-60 bg-[#EAF4FF] text-[#000] flex items-center justify-center space-x-2 p-2 rounded-lg hover:border-[#0666F6D0] hover:bg-[#5AB9E7] hover:text-[#fff] transition-colors duration-300 mb-4"
                 >
                   {`Bài ${value}`}
                 </Button>
